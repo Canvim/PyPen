@@ -4,8 +4,8 @@ with open("README.md", "r") as readme_file:
     long_description = readme_file.read()
 
 setuptools.setup(
-    name="pyper-sketch",
-    version="0.0.1",
+    name="pyperlib",
+    version="0.0.2",
     author="ErikWDev",
     author_email="erikwdev@gmail.com",
     description="A blank paper for your creative adventures in Python!",
