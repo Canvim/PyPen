@@ -1,3 +1,5 @@
+from pyperlib import __version__
+
 import setuptools
 
 with open("README.md", "r") as readme_file:
@@ -5,7 +7,7 @@ with open("README.md", "r") as readme_file:
 
 setuptools.setup(
     name="pyperlib",
-    version="0.0.10",
+    version=__version__,
     author="ErikWDev",
     author_email="erikwdev@gmail.com",
     description="A blank paper for your creative adventures in Python!",

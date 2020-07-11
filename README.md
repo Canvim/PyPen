@@ -31,6 +31,7 @@ class MySketch(Pyper):
 
 Run it calling:
 * ```python pyper_example_001.py```
+* (hopefully in future) ```pyperlib run pyper_example_001.py```
 
 ### More Examples!
 We have an entire github repository dedicated to Pyper examples. [Check it out!](https://www.github.com/Canvim/Pypers/)
