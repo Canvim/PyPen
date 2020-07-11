@@ -5,7 +5,7 @@ with open("README.md", "r") as readme_file:
 
 setuptools.setup(
     name="pyperlib",
-    version="0.0.3",
+    version="0.0.5",
     author="ErikWDev",
     author_email="erikwdev@gmail.com",
     description="A blank paper for your creative adventures in Python!",
@@ -13,6 +13,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Canvim/Pyper",
     packages=setuptools.find_packages(),
+    install_requires=[
+        ""
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
