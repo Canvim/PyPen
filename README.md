@@ -32,4 +32,4 @@ Run it using either:
  * ```python -m pyperlib run pyper_example_001.py```
 
 ### More Examples!
-We have an entire github repository dedicated to Pyper examples. (Check it out!)[https://www.github.com/Canvim/Papyrs/]
+We have an entire github repository dedicated to Pyper examples. [Check it out!](https://www.github.com/Canvim/Pypers/)
