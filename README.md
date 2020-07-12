@@ -21,12 +21,14 @@ Here is a bare-minimum example of a Pyper sketch:
 # pyper_example_001.py
 from pyperlib import *
 
-class MySketch(Pyper):
-    def start(self):
-        pass
+def start():
+    background(color.red)
 
-    def update(self):
-        pass
+x = 0
+
+def update():
+    x += 1
+    rectangle(x, 100, 30, 100)
 ```
 
 Run it calling:
