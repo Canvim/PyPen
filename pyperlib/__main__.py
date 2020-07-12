@@ -1,10 +1,9 @@
 import argparse
-from pyperlib import __version__
 
 def cli():
     argument_parser = argparse.ArgumentParser(description="The Pyper CLI for managing Pyper Sketches", prog="pyperlib")
 
-    argument_parser.add_argument("-v", "--version", action="version", help="Displays the currently installed version of Pyper", version=f"%(prog)s {__version__}")
+    argument_parser.add_argument("-f", "--foo", action="test", help="Placeholder Argument", test=f"Pyper!")
 
     args = argument_parser.parse_args()
     main(args)
