@@ -1,17 +1,14 @@
+import moderngl
+import moderngl_window as mglw
 
 
-class Pyper:
-    def __init__():
-        pass
+class Pyper(mglw.WindowConfig):
+    gl_version = (3, 3)
+    window_size = (500, 400)
+    title = "Pyper"  
+    resizable = True
+    samples = 8
+    log_level = 0
 
-    def start(self):
-        """Method called before the very first frame is drawn.
-        Perfect for setting settings or making API calls
-        """
-        pass
-
-    def update(self):
-        """Called every single frame. Here you can put all of your
-        sketch's logic such as drawing, animating and updating objects.
-        """
-        pass
+    def __init__(self, **kwargs):  
+        super().__init__(**kwargs)

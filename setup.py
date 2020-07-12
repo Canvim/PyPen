@@ -16,7 +16,8 @@ setuptools.setup(
     url="https://github.com/Canvim/Pyper",
     packages=setuptools.find_packages(),
     install_requires=[
-        ""
+        "moderngl",
+        "moderngl-window"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
