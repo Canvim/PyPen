@@ -1,2 +1,2 @@
 moderngl
-moderngl-window
+pyglet

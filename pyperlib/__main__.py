@@ -1,39 +1,19 @@
 import sys
 import argparse
 from os import path, getcwd
-import multiprocessing
-import time
 from importlib import util as import_util
 
-import moderngl_window
+import time
+import pyglet
 import moderngl
 
-class PyperWindow(moderngl_window.WindowConfig):
-    gl_version = (3, 3)
-    window_size = (500, 400)
-    title = "Pyper"  
-    resizable = True
-    samples = 8
-    log_level = 0
-
-    def render(self, time, frametime):
-        self.ctx.clear(0.0, 1.0, 0.0, 1.0)
-
-    def stop(self):
-        self.wnd._close = True
+class PyperWindow(pyglet.window.Window):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.set_minimum_size(200, 200)
     
-
-def our_parse_args(args=None, parser=None):
-    """Parse arguments from sys.argv
-
-    Passing in your own argparser can be user to extend the parser.
-
-    Keyword Args:
-        args: override for sys.argv
-        parser: Supply your own argparser instance
-    """
-    parser = parser or argparse.ArgumentParser()
-    return parser.parse_args(args)
+    def exit_callback(self, dt):
+        self.close()
 
 def cli():
     try:
@@ -42,8 +22,6 @@ def cli():
         argument_parser.add_argument("filename", help="The name/path to the file that contains your Pyper Sketch.")
 
         argument_parser.add_argument("-f", "--fullscreen", action="store_true")
-
-        argument_parser.add_argument("--headless", action="store_true", help="Run in headless mode.")
 
         argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
 
@@ -58,31 +36,31 @@ def cli():
         print(str(error))
         sys.exit(2)
 
-def run_window(arguments):
-    moderngl_window.parse_args = our_parse_args
-    custom_args = []
-
-    if arguments.headless:
-        custom_args += ["-wnd", "headless"]
-
-    moderngl_window.run_window_config(PyperWindow, args=custom_args)
-
 def main(arguments):
     file_path = path.join(getcwd(), arguments.filename)
     spec = import_util.spec_from_file_location("", file_path)
     user_sketch = import_util.module_from_spec(spec)
     spec.loader.exec_module(user_sketch)
 
+    window = PyperWindow(
+        resizable=True,
+        fullscreen=arguments.fullscreen
+    )
+    context = moderngl.create_context(require=300)
+
+    @window.event
+    def on_draw():
+        user_sketch.update()
+        context.clear(0.0, 1.0, 0.0, 0.0)
+
     if arguments.timeout > 0:
-        process = multiprocessing.Process(
-            target=run_window,
-            args=[arguments]
-        )
-        process.start()
-        time.sleep(arguments.timeout)
-        process.terminate()
+        pyglet.clock.schedule_once(window.exit_callback, arguments.timeout)
+        pyglet.app.run()
     else:
-        run_window(arguments)
+        pyglet.app.run()
+    
+
+        
 
 if __name__ == "__main__":
     cli()
