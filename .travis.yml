@@ -10,9 +10,7 @@ script:
     - python setup.py sdist
     - python setup.py bdist_wheel
     - pip install .
-    - pyper
-    - pyper --help
-    - pyper --fullscreen
+    - python tests/tests.py
 
 deploy:
   provider: pypi
