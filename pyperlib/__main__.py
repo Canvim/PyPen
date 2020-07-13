@@ -1,9 +1,12 @@
 import sys
 import argparse
 from os import path, getcwd
+import multiprocessing
+import time
 from importlib import util as import_util
 
 import moderngl_window
+import moderngl
 
 class PyperWindow(moderngl_window.WindowConfig):
     gl_version = (3, 3)
@@ -16,6 +19,9 @@ class PyperWindow(moderngl_window.WindowConfig):
     def render(self, time, frametime):
         self.ctx.clear(0.0, 1.0, 0.0, 1.0)
 
+    def stop(self):
+        self.wnd._close = True
+    
 
 def our_parse_args(args=None, parser=None):
     """Parse arguments from sys.argv
@@ -26,16 +32,18 @@ def our_parse_args(args=None, parser=None):
         args: override for sys.argv
         parser: Supply your own argparser instance
     """
-    parser = parser or create_parser()
+    parser = parser or argparse.ArgumentParser()
     return parser.parse_args(args)
 
 def cli():
     try:
         argument_parser = argparse.ArgumentParser(description="The Pyper CLI for managing Pyper Sketches", prog="pyper")
 
+        argument_parser.add_argument("filename", help="The name/path to the file that contains your Pyper Sketch.")
+
         argument_parser.add_argument("-f", "--fullscreen", action="store_true")
 
-        argument_parser.add_argument("filename", help="The name/path to the file that contains your Pyper Sketch.")
+        argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
 
         arguments = argument_parser.parse_args()
 
@@ -48,15 +56,29 @@ def cli():
         print(str(error))
         sys.exit(2)
 
+def run_window():
+    moderngl_window.parse_args = our_parse_args
+    moderngl_window.run_window_config(PyperWindow, args=[])
+
+def stop_thread(thread, p2k):
+    p2k.set()
+    thread.join()
+
 def main(arguments):
     file_path = path.join(getcwd(), arguments.filename)
     spec = import_util.spec_from_file_location("", file_path)
     user_sketch = import_util.module_from_spec(spec)
     spec.loader.exec_module(user_sketch)
 
-    moderngl_window.parse_args = our_parse_args
-    moderngl_window.run_window_config(PyperWindow, args = [])
-    pass
+    if arguments.timeout > 0:
+        process = multiprocessing.Process(
+            target=run_window
+        )
+        process.start()
+        time.sleep(arguments.timeout)
+        process.terminate()
+    else:
+        run_window()
 
 if __name__ == "__main__":
     cli()
