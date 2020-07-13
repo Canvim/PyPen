@@ -14,10 +14,11 @@ class TestExamples(TestCase):
                 self.assertEqual(return_code, 0)
 
 def run_individual_example(example_path):
-    print(f"Running 'pyper {os.path.join('examples', os.path.split(example_path)[1])}'")
     timeout_time = 2
+    arguments = ["pyper", example_path, "--headless", "--timeout", str(timeout_time)]
 
-    return_code = call(["pyper", example_path, "--timeout", str(timeout_time)], timeout=timeout_time*2.5)
+    print(' '.join(arguments))
+    return_code = call(arguments, timeout=timeout_time*2.5)
     return return_code
 
 

@@ -43,6 +43,8 @@ def cli():
 
         argument_parser.add_argument("-f", "--fullscreen", action="store_true")
 
+        argument_parser.add_argument("--headless", action="store_true", help="Run in headless mode.")
+
         argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
 
         arguments = argument_parser.parse_args()
@@ -56,13 +58,14 @@ def cli():
         print(str(error))
         sys.exit(2)
 
-def run_window():
+def run_window(arguments):
     moderngl_window.parse_args = our_parse_args
-    moderngl_window.run_window_config(PyperWindow, args=[])
+    custom_args = []
 
-def stop_thread(thread, p2k):
-    p2k.set()
-    thread.join()
+    if arguments.headless:
+        custom_args += ["-wnd", "headless"]
+
+    moderngl_window.run_window_config(PyperWindow, args=custom_args)
 
 def main(arguments):
     file_path = path.join(getcwd(), arguments.filename)
@@ -72,13 +75,14 @@ def main(arguments):
 
     if arguments.timeout > 0:
         process = multiprocessing.Process(
-            target=run_window
+            target=run_window,
+            args=[arguments]
         )
         process.start()
         time.sleep(arguments.timeout)
         process.terminate()
     else:
-        run_window()
+        run_window(arguments)
 
 if __name__ == "__main__":
     cli()
