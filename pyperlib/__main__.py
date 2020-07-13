@@ -11,7 +11,7 @@ def cli():
 
         if len(sys.argv)==1:
             argument_parser.print_help(sys.stderr)
-            sys.exit(1)
+            sys.exit(0)
 
         main(arguments)
     except argparse.ArgumentError as error:
