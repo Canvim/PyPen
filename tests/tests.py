@@ -15,10 +15,10 @@ class TestExamples(TestCase):
 
 def run_individual_example(example_path):
     timeout_time = 2
-    arguments = ["pyper", example_path, "--headless", "--timeout", str(timeout_time)]
+    arguments = ["pyper", example_path, "--timeout", str(timeout_time)]
 
     print(' '.join(arguments))
-    return_code = call(arguments, timeout=timeout_time*2.5)
+    return_code = call(arguments, timeout=timeout_time*2)
     return return_code
 
 
