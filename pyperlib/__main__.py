@@ -1,10 +1,11 @@
+import sys
 import argparse
 
 def cli():
     try:
         argument_parser = argparse.ArgumentParser(description="The Pyper CLI for managing Pyper Sketches", prog="pyper")
 
-        argument_parser.add_argument("-f", "--fullscreen")
+        argument_parser.add_argument("-f", "--fullscreen", type=bool, default=False)
 
         arguments = argument_parser.parse_args()
 
