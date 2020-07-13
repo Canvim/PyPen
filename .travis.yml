@@ -2,6 +2,9 @@ language: python
 python: "3.8"
 cache: pip
 
+before_install:
+  - sudo apt install xvfb
+
 install:
     - pip install --upgrade pip
     - pip install -r requirements.txt
@@ -10,12 +13,15 @@ script:
     - python setup.py sdist
     - python setup.py bdist_wheel
     - pip install .
-    - xvfb-run --server-args="-screen 0 1024x768x24" python python tests/tests.py
+    - xvfb-run --server-args="-screen 0 1024x768x24" python tests/tests.py
 
 deploy:
-  provider: pypi
-  username: __token__
-  distributions: sdist bdist_wheel
-  skip_existing: true
-  password:
-    secure: meFOxFn/EWIrAEZyUc/pKek9b3CN6PMKe7gjRNhhuS79UfwelgLd2Dbw16V6yPH2/NrLeH+bkZVSrG+anEbLbtkNmZznF6bL9DepiyGQa3S5ndH81EZ+jSxGCSIon/e1x6VzfrSqQkFft0QJR/OM+5DmWDieA15bez3LLQiGVETqRkw7ZQJ27k4O3qS1JqOrrwoyFx2oKDi151TqQ9cw/whnFwboI50mwV0s5PijZLZXobxwYgQHipVlygwDp4xqoB1fLikqr3PQiuQ5wWdcFN4p/FfRdVd5es6G43ew7T05VPk53L5ClOvtiJF+FJ99P0pNF30JwNeirEdWphoX8jZmPKsp6ve2HnAiggZdXtdtvcTPA9LBDWsk7dI17DTiQSysFsMh61TVPf0q39XC9tZLgMatbF6pTJySgJrg5ZSbLdCi3QzqB3lzwGlF9rq7mqZ+/Ty0dOgcf+rucSlo844/TNJPjjrQxE5j2PN6xrE/awHw4c3kQKVUX4bchzJjQ3V8EHRIp5h+Hznlg5TV9nfATQGq7P8x+YzlOIWh8dEbf2plHrem4GFtJNc4aSlArRCwAyz4VKFNTXJJnJxSlNDOOH94LAQ1JiaUXuqzMchlesBIMcvjlsCNRT3iXB5uFpDHiYMep2KZEx1U3YAcBBKLbIcQDPLdGUQahFCVgj4=
+  - provider: pypi
+    username: __token__
+    distributions: sdist bdist_wheel
+    skip_existing: true
+    password:
+      secure: meFOxFn/EWIrAEZyUc/pKek9b3CN6PMKe7gjRNhhuS79UfwelgLd2Dbw16V6yPH2/NrLeH+bkZVSrG+anEbLbtkNmZznF6bL9DepiyGQa3S5ndH81EZ+jSxGCSIon/e1x6VzfrSqQkFft0QJR/OM+5DmWDieA15bez3LLQiGVETqRkw7ZQJ27k4O3qS1JqOrrwoyFx2oKDi151TqQ9cw/whnFwboI50mwV0s5PijZLZXobxwYgQHipVlygwDp4xqoB1fLikqr3PQiuQ5wWdcFN4p/FfRdVd5es6G43ew7T05VPk53L5ClOvtiJF+FJ99P0pNF30JwNeirEdWphoX8jZmPKsp6ve2HnAiggZdXtdtvcTPA9LBDWsk7dI17DTiQSysFsMh61TVPf0q39XC9tZLgMatbF6pTJySgJrg5ZSbLdCi3QzqB3lzwGlF9rq7mqZ+/Ty0dOgcf+rucSlo844/TNJPjjrQxE5j2PN6xrE/awHw4c3kQKVUX4bchzJjQ3V8EHRIp5h+Hznlg5TV9nfATQGq7P8x+YzlOIWh8dEbf2plHrem4GFtJNc4aSlArRCwAyz4VKFNTXJJnJxSlNDOOH94LAQ1JiaUXuqzMchlesBIMcvjlsCNRT3iXB5uFpDHiYMep2KZEx1U3YAcBBKLbIcQDPLdGUQahFCVgj4=
+    on:
+      branch:
+        - master 
