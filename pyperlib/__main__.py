@@ -46,7 +46,7 @@ def main(arguments):
         resizable=True,
         fullscreen=arguments.fullscreen
     )
-    context = moderngl.create_context(require=310)
+    context = moderngl.create_context(require=300)
 
     @window.event
     def on_draw():
