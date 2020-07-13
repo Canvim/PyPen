@@ -18,7 +18,7 @@ Check out the package on [Pypi](https://pypi.org/project/pyperlib/)!
 Here is a bare-minimum example of a Pyper sketch:
 
 ```python
-# pyper_example_001.py
+# example_001.py
 from pyperlib import *
 
 def start():
@@ -36,4 +36,4 @@ Run it calling:
 * (hopefully in future) ```pyperlib run pyper_example_001.py```
 
 ### More Examples!
-We have an entire github repository dedicated to Pyper examples. [Check it out!](https://www.github.com/Canvim/Pypers/)
+We have an entire folder dedicafilled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
