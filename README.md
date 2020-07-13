@@ -1,5 +1,5 @@
 # Pyper
-[![Build Status](https://travis-ci.org/Canvim/Pyper.svg?branch=master)](https://travis-ci.org/Canvim/Pyper) ![PyPI - Version](https://img.shields.io/pypi/v/pyperlib.svg?logo=python&color=lightblue&label=Pyper%20Version) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pyperlib?color=lightgreen&label=Pyper%20Downloads&logo=pypi) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/Pyper?color=purple&label=Pyper%20Size&logo=github) ![GitHub stars](https://img.shields.io/github/stars/Canvim/Pyper?color=gold&logo=github)
+[![Build Status](https://travis-ci.org/Canvim/Pyper.svg?branch=master)](https://travis-ci.org/Canvim/Pyper) ![PyPI - Version](https://img.shields.io/pypi/v/pyperlib.svg?logo=python&color=lightblue&label=Version) ![PyPI - Downloads](https://img.shields.io/pypi/dm/pyperlib?color=lightgreen&label=Downloads&logo=pypi) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/Pyper?color=purple&label=Size&logo=github)
 
 A blank paper for your creative adventures in Python!
 
