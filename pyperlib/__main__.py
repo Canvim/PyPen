@@ -1,20 +1,14 @@
 import sys
 import argparse
+import time
 from os import path, getcwd
 from importlib import util as import_util
 
-import time
-import pyglet
 import moderngl
+import pyglet
 
-
-class PyperWindow(pyglet.window.Window):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.set_minimum_size(200, 200)
-
-    def exit_callback(self, dt):
-        self.close()
+from pyperlib.settings import settings
+from pyperlib.drawing.window import PyperWindow
 
 
 def cli():
@@ -36,13 +30,13 @@ def cli():
             argument_parser.print_help(sys.stderr)
             sys.exit(0)
 
-        main(arguments)
+        run_pyper_window(arguments)
     except argparse.ArgumentError as error:
         print(str(error))
         sys.exit(2)
 
 
-def main(arguments):
+def run_pyper_window(arguments):
     file_path = path.join(getcwd(), arguments.filename)
     spec = import_util.spec_from_file_location("", file_path)
     user_sketch = import_util.module_from_spec(spec)
@@ -52,12 +46,20 @@ def main(arguments):
         resizable=True,
         fullscreen=arguments.fullscreen
     )
-    context = moderngl.create_context(require=300)
+
+    context = moderngl.create_context(require=settings.opengl_version)
+
+    user_sketch.start()
 
     @window.event
     def on_draw():
+        pass
+
+    def update(delta_time):
         user_sketch.update()
-        context.clear(0.0, 1.0, 0.0, 0.0)
+
+    pyglet.clock.schedule_interval(update, 1/settings.fps)
+    pyglet.clock.schedule_once(update, 0)
 
     if arguments.timeout > 0:
         pyglet.clock.schedule_once(window.exit_callback, arguments.timeout)
