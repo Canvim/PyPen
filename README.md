@@ -4,13 +4,13 @@
 A blank paper for your creative adventures in Python!
 
 ## What is Pyper?
-Pyper tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting mouse input. It utilizes moderngl and moderngl-window in the background to efficiently utilize the GPU through OpenGL to draw all primitives quickly.
+Pyper tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting mouse input. It utilizes moderngl and pyglet in the background to efficiently utilize the GPU through OpenGL to draw everything quickly.
 
 ## How do I install Pyper?
 Easy! just do:
 * ```pip install pyperlib```
 
-Thanks to moderngl, as long as you have a machine capable of running OpenGL 4.0+, everything will work fine, no matter if you use Linux, Windows or MacOs.
+Thanks to moderngl, as long as you have a machine capable of running OpenGL 3.0+, everything will work fine, no matter if you use Linux, Windows or MacOs.
 
 Check out the package on [Pypi](https://pypi.org/project/pyperlib/)!
 
@@ -22,18 +22,19 @@ Here is a bare-minimum example of a Pyper sketch:
 from pyperlib import *
 
 def start():
-    background(color.red)
+    settings.fps = 120
 
 x = 0
 
 def update():
     x += 1
-    rectangle(x, 100, 30, 100)
+    rectangle(x, 100, 30, 100, colors.red)
 ```
 
-Run it calling:
-* ```python pyper_example_001.py```
-* (hopefully in future) ```pyperlib run pyper_example_001.py```
+Run by it calling:
+* ```pyper example_001.py```
+* (or ```pyperlib example_001.py```)
+* (or ```python -m pyperlib ecample_001.py```)
 
 ### More Examples!
-We have an entire folder dedicafilled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
+We have a folder filled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
