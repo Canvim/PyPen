@@ -3,7 +3,7 @@ from pyperlib.drawing.color import colors
 
 
 def clear_screen():
-    context.clear(colors.default_background_color.rgba())
+    context.clear(color=colors.default_background_color.rgba())
 
 
 def clear():
