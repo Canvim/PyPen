@@ -8,17 +8,16 @@ class Color:
                 self.r, self.g, self.b = rgba_tuple
                 self.a = a
             else:
-               self.r, self.g, self.b, self.a = rgba_tuple 
+                self.r, self.g, self.b, self.a = rgba_tuple
         else:
             self.r = r
             self.g = g
             self.b = b
             self.a = a
-            
-    
+
     def rgb(self):
         return self.r, self.g, self.b
-    
+
     def rgba(self):
         return self.r, self.g, self.b, self.a
 
@@ -29,11 +28,11 @@ class Color:
     @classmethod
     def from_rgba(cls, r: float, g: float, b: float, a: float):
         return cls(r, g, b, a)
-    
+
     @classmethod
     def from_hsv(cls, h: float, s: float, v: float):
         return cls(rgba_tuple=colorsys.hsv_to_rgb(h, s, v))
-    
+
     @classmethod
     def from_hls(cls, h: float, l: float, s: float):
         return cls(rgba_tuple=colorsys.hls_to_rgb(h, l, s))
