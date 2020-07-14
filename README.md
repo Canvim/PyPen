@@ -4,7 +4,7 @@
 A blank paper for your creative adventures in Python!
 
 ## What is Pyper?
-Pyper tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting mouse input. It utilizes moderngl and pyglet in the background to efficiently utilize the GPU through OpenGL to draw everything quickly.
+Pyper tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting user input.
 
 ## How do I install Pyper?
 Easy! just do:
@@ -34,7 +34,16 @@ def update():
 Run by it calling:
 * ```pyper example_001.py```
 * (or ```pyperlib example_001.py```)
-* (or ```python -m pyperlib ecample_001.py```)
+* (or ```python -m pyperlib example_001.py```)
 
 ### More Examples!
 We have a folder filled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
+
+## How does Pyper work?
+Pyper utilizes moderngl and pyglet in the background to efficiently run OpenGL code on the GPU which draws everything very quickly.
+
+Pyper is basically doing all the boring stuff in the background with window management, event handling and exposes simple drawing functions for you to use and express your creativity with.
+
+What are you waiting for?
+
+Install it now with ```pip install pyperlib```
