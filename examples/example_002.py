@@ -7,4 +7,4 @@ def start():
 
 def update():
     print("Update from example 2!")
-    rectangle()
+    rectangle(colors.green)
