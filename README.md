@@ -10,8 +10,6 @@ Pyper tries to be the end-all solution to creative coding in Python. It provides
 Easy! just do:
 * ```pip install pyperlib```
 
-Thanks to moderngl, as long as you have a machine capable of running OpenGL 3.0+, everything will work fine, no matter if you use Linux, Windows or MacOs.
-
 Check out the package on [Pypi](https://pypi.org/project/pyperlib/)!
 
 ## How do I use Pyper?
@@ -29,7 +27,7 @@ x = 0
 def update():
     global x
     x += 1
-    rectangle(x, 100, 30, 100, colors.red)
+    rectangle(x, 100, 30, 100, "red")
 ```
 
 Run it by calling:
@@ -41,9 +39,11 @@ Run it by calling:
 We have a folder filled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
 
 ## How does Pyper work?
-Pyper utilizes pyglet in the background to efficiently run OpenGL code on the GPU which draws everything very quickly.
+Pyper utilizes pygame in the background for event-management, draw-calls and window-management.
 
-Pyper is basically doing all the boring stuff in the background with window management, event handling and exposes simple drawing functions for you to use and express your creativity with.
+We felt like there was always a bunch of overhead needed to get a pygame to work, and it had some weird quirks which always made for a half-baked user experience.
+
+Pyper is basically doing all that boring stuff in the background and exposes simple drawing functions for you to use and express your creativity with.
 
 What are you waiting for?
 
