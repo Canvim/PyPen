@@ -5,12 +5,12 @@ def start():
 
 my_colors = [color for name, color in colors.__dict__.items() if not callable(color)]
 
-x = 100
 frame = 0
 
 def update():
     global frame
-    fill(Color.from_rgb255(190, 90, 180))
+    # fill(Color.from_rgb255(190, 90, 180))
+    clear()
 
     i = 0
     for color in (my_colors*4):

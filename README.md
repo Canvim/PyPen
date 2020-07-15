@@ -22,16 +22,17 @@ Here is a bare-minimum example of a Pyper sketch:
 from pyperlib import *
 
 def start():
-    settings.fps = 120
+    settings.fps = 70
 
 x = 0
 
 def update():
+    global x
     x += 1
     rectangle(x, 100, 30, 100, colors.red)
 ```
 
-Run by it calling:
+Run it by calling:
 * ```pyper example_001.py```
 * (or ```pyperlib example_001.py```)
 * (or ```python -m pyperlib example_001.py```)
@@ -40,7 +41,7 @@ Run by it calling:
 We have a folder filled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
 
 ## How does Pyper work?
-Pyper utilizes moderngl and pyglet in the background to efficiently run OpenGL code on the GPU which draws everything very quickly.
+Pyper utilizes pyglet in the background to efficiently run OpenGL code on the GPU which draws everything very quickly.
 
 Pyper is basically doing all the boring stuff in the background with window management, event handling and exposes simple drawing functions for you to use and express your creativity with.
 

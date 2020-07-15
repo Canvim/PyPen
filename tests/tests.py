@@ -58,7 +58,7 @@ def run_pyper_sketch(example_path, custom_timeout=2):
     arguments = ["pyper", example_path, "--timeout", str(timeout_time)]
 
     print(' '.join(arguments))
-    return_code = call(arguments, timeout=timeout_time*2, stdout=DEVNULL, stderr=sys.stderr)
+    return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL, stderr=sys.stderr)
     return return_code
 
 

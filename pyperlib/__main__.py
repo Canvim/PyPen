@@ -4,12 +4,11 @@ import time
 from os import path, getcwd
 from importlib import util as import_util
 
-import moderngl
 import pyglet
 
 from pyperlib.settings import settings
 from pyperlib.drawing.window import PyperWindow
-
+from pyperlib.drawing.primitives import draw_batch
 
 def cli():
     try:
@@ -35,34 +34,34 @@ def cli():
         print(str(error))
         sys.exit(2)
 
-
 def run_pyper_window(arguments):
     file_path = path.join(getcwd(), arguments.filename)
     spec = import_util.spec_from_file_location("", file_path)
     user_sketch = import_util.module_from_spec(spec)
     spec.loader.exec_module(user_sketch)
 
-    window = PyperWindow(
+    pyper_window = PyperWindow(
         resizable=True,
         fullscreen=arguments.fullscreen
     )
 
-    context = moderngl.create_context(require=settings.opengl_version)
-
-    user_sketch.start()
-
-    @window.event
+    @pyper_window.event
     def on_draw():
-        pass
+        draw_batch()
+
+    def start(delta_time):
+        user_sketch.start()
+        update(delta_time)
 
     def update(delta_time):
         user_sketch.update()
+        
 
-    pyglet.clock.schedule_interval(update, 1/settings.fps)
-    pyglet.clock.schedule_once(update, 0)
+    pyglet.clock.schedule_interval_soft(update, 1/settings.fps)
+    pyglet.clock.schedule_once(start, 0)
 
     if arguments.timeout > 0:
-        pyglet.clock.schedule_once(window.exit_callback, arguments.timeout)
+        pyglet.clock.schedule_once(pyper_window.exit_callback, arguments.timeout)
         pyglet.app.run()
     else:
         pyglet.app.run()
