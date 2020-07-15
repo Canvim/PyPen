@@ -1,12 +1,14 @@
 
 
 class Settings:
-    def __init__(self, fps, opengl_version):
+    def __init__(self, fps, width, height):
         self.fps = fps
-        self.opengl_version = opengl_version
+        self.width = width
+        self.height = height
 
 
 settings = Settings(
-    opengl_version=300,
+    width=640,
+    height=480,
     fps=60
 )

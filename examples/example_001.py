@@ -8,7 +8,6 @@ t = 0
 
 def update():
     global t
-    # fill(colors.red)
     clear()
     rectangle(sin(t*0.1) * 100, 20, 300, 100)
 
