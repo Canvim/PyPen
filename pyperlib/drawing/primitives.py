@@ -24,3 +24,15 @@ def circle(x, y, radius, color="default_color"):
     color = Color.from_user_input(color)
 
     pygame.draw.circle(display, color.rgba(), (int(x), int(y)), int(radius))
+
+def ellipse(x, y, width, height, color="default_color"):
+    color = Color.from_user_input(color)
+    rect_x = int(x - width/2)
+    rect_y = int(y - height/2)
+    pygame.draw.ellipse(display, color.rgba(), (rect_x, rect_y, int(width), int(height)))
+
+def arc(x, y, width, height, start_angle, stop_angle, color="default_color"):
+    color = Color.from_user_input(color)
+    rect_x = int(x - width/2)
+    rect_y = int(y - height/2)
+    pygame.draw.arc(display, color.rgba(), (rect_x, rect_y, int(width), int(height)), start_angle, stop_angle)

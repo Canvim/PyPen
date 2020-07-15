@@ -9,6 +9,6 @@ t = 0
 def update():
     global t
     clear()
-    rectangle(sin(t*0.1) * 100, 20, 300, 100)
+    arc(320, 240, 600, 400, PI*sin(t*1.2+1.6), PI*sin(t))
 
-    t = t + 1
+    t = t + 0.014
