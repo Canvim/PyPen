@@ -1,2 +1,2 @@
-moderngl
 pyglet
+pycairo

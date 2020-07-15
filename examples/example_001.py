@@ -2,10 +2,14 @@ from pyperlib import *
 
 
 def start():
-    print("Start from example 1!")
-    settings.fps = 2
+    settings.fps = 70
 
+t = 0
 
 def update():
-    print("Update from example 1!")
-    rectangle(colors.red)
+    global t
+    # fill(colors.red)
+    clear()
+    rectangle(sin(t*0.1) * 100, 20, 300, 100)
+
+    t = t + 1

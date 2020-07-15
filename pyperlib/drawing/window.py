@@ -1,7 +1,4 @@
 import pyglet
-import moderngl
-
-context = moderngl.create_standalone_context()
 
 
 class PyperWindow(pyglet.window.Window):

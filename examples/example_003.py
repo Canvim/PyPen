@@ -1,10 +1,11 @@
 from pyperlib import *
 
-
 def start():
-    print("Start from example 3!")
+    settings.fps = 5
 
 
 def update():
-    print("Update from example 3!")
-    rectangle(colors.blue)
+    for i in range(0, 100):
+        for j in range(0, 100):
+            rectangle(i*10, j*10, 5, 5)
+    
