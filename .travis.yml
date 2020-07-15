@@ -4,8 +4,6 @@ cache: pip
 
 before_install:
   - sudo apt update
-  - sudo apt install freeglut3-dev
-  - sudo apt install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0
   - sudo apt install xvfb
 
 install:
