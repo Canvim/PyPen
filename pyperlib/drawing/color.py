@@ -17,6 +17,12 @@ class Color:
 
     def rgb(self):
         return self.r, self.g, self.b
+    
+    def rgb255(self):
+        r = int(self.r * 255)
+        g = int(self.g * 255)
+        b = int(self.b * 255)
+        return r, g, b
 
     def rgba(self):
         return self.r, self.g, self.b, self.a
@@ -26,8 +32,16 @@ class Color:
         return cls(r, g, b)
 
     @classmethod
+    def from_rgb255(cls, r: int, g: int, b: int):
+        return cls(r/255, g/255, b/255)
+
+    @classmethod
     def from_rgba(cls, r: float, g: float, b: float, a: float):
         return cls(r, g, b, a)
+    
+    @classmethod
+    def from_rgba255(cls, r: int, g: int, b: int, a: int):
+        return cls(r/255, g/255, b/255, a/255)
 
     @classmethod
     def from_hsv(cls, h: float, s: float, v: float):

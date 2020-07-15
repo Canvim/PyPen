@@ -18,7 +18,6 @@ def _check_if_executed_with_python():
     print()
     print("Run 'pyper --help' for more information.")
     print()
-    sys.exit(0)
 
 _check_if_executed_with_python()
 
