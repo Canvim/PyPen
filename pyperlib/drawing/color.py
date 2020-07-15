@@ -1,67 +1,42 @@
 import colorsys
 
+_COLORS = {
+    "default_background_color" : (0),
+    "default_color" : (30, 60, 125),
+    "red" : (200, 30, 30),
+    "green" : (30, 200, 30),
+    "blue" : (30, 30, 200)
+}
 
 class Color:
-    def __init__(self, r=0.0, g=0.0, b=0.0, a=1.0, rgba_tuple=None):
-        if rgba_tuple:
-            if len(rgba_tuple) == 3:
-                self.r, self.g, self.b = rgba_tuple
-                self.a = a
-            else:
-                self.r, self.g, self.b, self.a = rgba_tuple
-        else:
-            self.r = r
-            self.g = g
-            self.b = b
-            self.a = a
+    def __init__(self, r=0, g=0, b=0, a=255):
+        self.r = int(r)
+        self.g = int(g)
+        self.b = int(b)
+        self.a = int(a)
 
     def rgb(self):
         return self.r, self.g, self.b
-    
-    def rgb255(self):
-        r = int(self.r * 255)
-        g = int(self.g * 255)
-        b = int(self.b * 255)
-        return r, g, b
 
     def rgba(self):
         return self.r, self.g, self.b, self.a
-
-    @classmethod
-    def from_rgb(cls, r: float, g: float, b: float):
-        return cls(r, g, b)
-
-    @classmethod
-    def from_rgb255(cls, r: int, g: int, b: int):
-        return cls(r/255, g/255, b/255)
-
-    @classmethod
-    def from_rgba(cls, r: float, g: float, b: float, a: float):
-        return cls(r, g, b, a)
     
     @classmethod
-    def from_rgba255(cls, r: int, g: int, b: int, a: int):
-        return cls(r/255, g/255, b/255, a/255)
+    def from_user_input(cls, user_input):
+        if type(user_input) is Color:
+            return user_input
+            
+        if type(user_input) is tuple:
+            if len(user_input) == 1 or len(user_input) == 3:
+                r, g, b = user_input
+                return cls(r, g, b)
+            
+            if len(user_input) == 4:
+                r, g, b, a = user_input
+                return cls(r, g, b, a)
+        
+        if type(user_input) is str:
+            if user_input in _COLORS.keys():
+                return Color.from_user_input(_COLORS[user_input])
 
-    @classmethod
-    def from_hsv(cls, h: float, s: float, v: float):
-        return cls(rgba_tuple=colorsys.hsv_to_rgb(h, s, v))
-
-    @classmethod
-    def from_hls(cls, h: float, l: float, s: float):
-        return cls(rgba_tuple=colorsys.hls_to_rgb(h, l, s))
-
-
-class Colors:
-    def __init__(self):
-        self.default_background_color = Color.from_rgb(0.0, 0.0, 0.0)
-        self.default_color = Color.from_rgb(0.2, 0.4, 0.5)
-
-        self.red = Color.from_rgb(0.8, 0.2, 0.2)
-        self.green = Color.from_rgb(0.2, 0.8, 0.2)
-        self.blue = Color.from_rgb(0.2, 0.2, 0.8)
-
-        self.dark_green = Color.from_rgb(0.097, 0.613, 0.207)
-
-
-colors = Colors()
+        return cls()

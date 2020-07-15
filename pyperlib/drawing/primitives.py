@@ -1,33 +1,38 @@
-from pyperlib.drawing.color import colors
-from pyglet import shapes
+from pyperlib.drawing.color import Color
+from pyperlib.__main__ import display
 
-import pyglet
-from pyglet.gl import *
-
-_shapes = []
-_main_batch = pyglet.graphics.Batch()
+import pygame
 
 def clear_screen():
-    fill_screen(colors.default_background_color)
-    pass
-
+    fill_screen("default_background_color")
 
 def clear():
     clear_screen()
 
-
-def fill_screen(color=colors.default_background_color):
+def fill_screen(color="default_background_color"):
     rectangle(0, 0, 10000, 10000, color)
-    pass
 
-def fill(color=colors.default_background_color):
+def fill(color="default_background_color"):
     fill_screen(color=color)
 
-def rectangle(x, y, width, height, color=colors.default_color):
-    rectangle_shape = shapes.Rectangle(x, y, width, height, color=color.rgb255(), batch=_main_batch)
-    
-    _shapes.append(rectangle_shape)
+def rectangle(x, y, width, height, color="default_color"):
+    color = Color.from_user_input(color)
 
-def draw_batch():
-    _main_batch.draw()
-    _shapes = []
+    pygame.draw.rect(display, color.rgba(), (int(x), int(y), int(width), int(height)))
+
+def circle(x, y, radius, color="default_color"):
+    color = Color.from_user_input(color)
+
+    pygame.draw.circle(display, color.rgba(), (int(x), int(y)), int(radius))
+
+def ellipse(x, y, width, height, color="default_color"):
+    color = Color.from_user_input(color)
+    rect_x = int(x - width/2)
+    rect_y = int(y - height/2)
+    pygame.draw.ellipse(display, color.rgba(), (rect_x, rect_y, int(width), int(height)))
+
+def arc(x, y, width, height, start_angle, stop_angle, color="default_color"):
+    color = Color.from_user_input(color)
+    rect_x = int(x - width/2)
+    rect_y = int(y - height/2)
+    pygame.draw.arc(display, color.rgba(), (rect_x, rect_y, int(width), int(height)), start_angle, stop_angle)

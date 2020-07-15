@@ -4,11 +4,11 @@ import time
 from os import path, getcwd
 from importlib import util as import_util
 
-import pyglet
-
 from pyperlib.settings import settings
-from pyperlib.drawing.window import PyperWindow
-from pyperlib.drawing.primitives import draw_batch
+
+import pygame
+
+display = pygame.display.set_mode((settings.width, settings.height))
 
 def cli():
     try:
@@ -29,42 +29,57 @@ def cli():
             argument_parser.print_help(sys.stderr)
             sys.exit(0)
 
-        run_pyper_window(arguments)
+        main(arguments)
     except argparse.ArgumentError as error:
         print(str(error))
         sys.exit(2)
 
-def run_pyper_window(arguments):
+def main(arguments):
     file_path = path.join(getcwd(), arguments.filename)
     spec = import_util.spec_from_file_location("", file_path)
     user_sketch = import_util.module_from_spec(spec)
     spec.loader.exec_module(user_sketch)
 
-    pyper_window = PyperWindow(
-        resizable=True,
-        fullscreen=arguments.fullscreen
-    )
-
-    @pyper_window.event
-    def on_draw():
-        draw_batch()
-
-    def start(delta_time):
+    def start():
         user_sketch.start()
-        update(delta_time)
+        update()
 
-    def update(delta_time):
+    def update():
         user_sketch.update()
+
+    pygame.init()
+    pygame.display.set_caption(f"Pyper | {arguments.filename}")
+    
+    start()
+    
+    pygame.display.flip()
+    clock = pygame.time.Clock()
+
+    is_running = True
+    passed_time = 0
+
+    while is_running:
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                is_running = False
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    is_running = False
+        delta_time = clock.tick(settings.fps)
+        passed_time += delta_time
         
+        if arguments.timeout > 0:
+            if passed_time/1000 > arguments.timeout:
+                is_running = False
+    
+        # Handle drawing...
+        update()
 
-    pyglet.clock.schedule_interval_soft(update, 1/settings.fps)
-    pyglet.clock.schedule_once(start, 0)
+        pygame.display.flip()
 
-    if arguments.timeout > 0:
-        pyglet.clock.schedule_once(pyper_window.exit_callback, arguments.timeout)
-        pyglet.app.run()
-    else:
-        pyglet.app.run()
+        
 
 
 if __name__ == "__main__":

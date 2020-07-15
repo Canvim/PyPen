@@ -1,5 +1,8 @@
 import sys
 import re
+import os
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
 def _check_if_executed_with_python():
     if not sys.argv:

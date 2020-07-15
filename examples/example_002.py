@@ -5,7 +5,7 @@ def start():
 
 
 def update():
-    fill(colors.dark_green)
+    fill("red")
     print(PI)
     print(E**2)
     print(TAU)
