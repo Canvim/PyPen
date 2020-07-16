@@ -49,7 +49,7 @@ class Color:
                 return cls(r, g, b, a)
         
         if type(user_input) is str:
-            if user_input in _COLORS_CACHE.keys():
+            if user_input in _COLORS_CACHE:
                 return _COLORS_CACHE[user_input]
 
             if user_input in _COLORS.keys():
