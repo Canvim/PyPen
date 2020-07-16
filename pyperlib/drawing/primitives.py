@@ -4,16 +4,19 @@ from pyperlib.__main__ import display
 import pygame
 
 def clear_screen():
-    fill_screen("default_background_color")
+    color = Color.from_user_input("default_background_color")
+    display.fill(color.rgb())
 
 def clear():
     clear_screen()
 
 def fill_screen(color="default_background_color"):
-    rectangle(0, 0, 10000, 10000, color)
+    display.fill(color.rgba())
 
 def fill(color="default_background_color"):
-    fill_screen(color=color)
+    color = Color.from_user_input(color)
+
+    fill_screen(color)
 
 def rectangle(x, y, width, height, color="default_color"):
     color = Color.from_user_input(color)
