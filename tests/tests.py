@@ -7,6 +7,27 @@ from pyperlib.utils.math import *
 
 class TestExamples(TestCase):
 
+    def test_screenshot(self):
+        cool_print("Trying to take a screenshot")
+        screenshot_test_file_path = os.path.join(os.path.split(
+            os.path.realpath(__file__))[0], "test_scenes", "test_colors.py")
+
+        file_name = os.path.split(screenshot_test_file_path)[1]
+        screenshot_file_path = os.path.join(screenshot_test_file_path, "..", f"{file_name}.png")
+
+        if os.path.isfile(screenshot_file_path):
+            print("Old screenshot already exists. Removing...")
+            os.remove(screenshot_file_path)
+
+        print(f"Running {file_name}")
+
+        returncode = run_pyper_sketch(screenshot_test_file_path, custom_timeout=3, extra_arguments=["--screenshot", "2"])
+
+        self.assertEqual(returncode, 0)
+        self.assertTrue(os.path.isfile(screenshot_file_path))
+
+        print("OK")
+
     def test_util_functions(self):
         cool_print("Testing util functions...")
         # Constants ok
@@ -69,9 +90,10 @@ class TestExamples(TestCase):
                 print("OK")
 
 
-def run_pyper_sketch(example_path, custom_timeout=2):
+def run_pyper_sketch(example_path, custom_timeout=2, extra_arguments=[]):
     timeout_time = custom_timeout
     arguments = ["pyper", example_path, "--timeout", str(timeout_time)]
+    arguments += extra_arguments
 
     print(' '.join(arguments))
     return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL, stderr=sys.stderr)

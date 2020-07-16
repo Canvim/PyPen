@@ -25,6 +25,9 @@ def cli():
         argument_parser.add_argument(
             "--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
 
+        argument_parser.add_argument(
+            "--screenshot", help="Takes screenshot of sketch after provided seconds.", type=float, required=False, default=-1.0)
+
         arguments = argument_parser.parse_args()
 
         if len(sys.argv) == 1:
@@ -116,6 +119,10 @@ def main(arguments):
         delta_time = clock.tick(settings.fps if settings.fps > 0 else 1)/1000
         passed_time += delta_time
         frame_count += 1
+
+        if arguments.screenshot >= 0:
+            if passed_time > arguments.screenshot:
+                pygame.image.save(display, f"{arguments.filename}.png")
 
         if arguments.timeout > 0:
             if passed_time > arguments.timeout:
