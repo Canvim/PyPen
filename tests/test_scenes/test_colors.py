@@ -5,7 +5,8 @@ def start():
     settings.fps = 120
 
 
-colors = ["#343434",
+colors = ["0xF2Fab4",
+          "#343434",
           "#a3",
           "rgb(110, 20, 30)",
           "rgba(40, 120, 160, 103)",
@@ -17,13 +18,16 @@ colors = ["#343434",
           "purple",
           "yellow",
           "cyan",
+          [24],
+          [35, 123, 0],
           (0),
           (255, 0, 0),
           (190),
           120,
           100000.0,
           (1000.345, 23423423.2, 23.0),
-          30]
+          30,
+          [35, 123, 0, 34]]
 
 colors = colors*2
 
@@ -31,10 +35,12 @@ colors = colors*2
 def update():
     global colors
     clear()
+    rectangle(0, 0, 640, 480/2, colors[0])
+    rectangle(0, 480/2, 640, 480/2, colors[len(colors)-1])
 
     i = 0
     for color in colors:
-        y = 30 + sin(0.3*(TIME*8 + i))*20
+        y = 80 + sin(0.3*(TIME*8 + i))*20
 
         d = 640/len(colors)
 

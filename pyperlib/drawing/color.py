@@ -34,14 +34,14 @@ class Color:
 
     @classmethod
     def from_user_input(cls, user_input):
-        if type(user_input) is Color:
+        if isinstance(user_input, Color):
             return user_input
 
-        if type(user_input) is int or type(user_input) is float:
+        if isinstance(user_input, int) or isinstance(user_input, float):
             r = g = b = user_input
             return cls(r, g, b)
 
-        if type(user_input) is tuple:
+        if isinstance(user_input, tuple) or isinstance(user_input, list):
             if len(user_input) == 1:
                 r = g = b = user_input[0]
                 return cls(r, g, b)
@@ -54,7 +54,7 @@ class Color:
                 r, g, b, a = user_input
                 return cls(r, g, b, a)
 
-        if type(user_input) is str:
+        if isinstance(user_input, str):
             if user_input in _COLORS_CACHE:
                 return _COLORS_CACHE[user_input]
 
@@ -63,10 +63,10 @@ class Color:
                 _COLORS_CACHE[user_input] = color
                 return color
 
-            hex_match = re.match(r"\#(.*)", user_input)
+            hex_match = re.match(r"(\#|0x)(.*)", user_input)
 
             if hex_match:
-                hex_match_group = hex_match.group(1)
+                hex_match_group = hex_match.group(2)
                 hex_digits = re.findall(r".{1,2}", hex_match_group)
                 new_user_input = tuple([int(h, 16) for h in hex_digits])
                 color = Color.from_user_input(new_user_input)
