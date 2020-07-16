@@ -17,6 +17,6 @@ settings = Settings(
     fps=60,
 
     _is_executing_with_python=False,
-    _user_has_start = True,
-    _user_has_update = True
+    _user_has_start=True,
+    _user_has_update=True
 )

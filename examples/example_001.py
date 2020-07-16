@@ -1,7 +1,9 @@
 from pyperlib import *
 
+
 def start():
     settings.fps = 70
+
 
 def update():
     clear()

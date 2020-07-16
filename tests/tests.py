@@ -4,6 +4,7 @@ from unittest import main, TestCase
 from subprocess import call, DEVNULL
 from pyperlib.utils.math import *
 
+
 class TestExamples(TestCase):
 
     def test_util_functions(self):
@@ -45,7 +46,7 @@ class TestExamples(TestCase):
                     os.path.join(examples_dir_path, example_filename))
                 self.assertEqual(return_code, 0)
                 print("OK")
-    
+
     def test_all_test_scenes(self):
         cool_print("Trying to run pyper command with timeout on all sketches in tests/test_scenes/")
         test_scenes_dir_path = os.path.join(os.path.split(
@@ -63,7 +64,8 @@ class TestExamples(TestCase):
                 print(f"Running {test_filename}")
                 return_code = run_pyper_sketch(
                     os.path.join(test_scenes_dir_path, test_filename))
-                self.assertEqual(return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
+                self.assertEqual(
+                    return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
                 print("OK")
 
 
@@ -82,6 +84,7 @@ def cool_print(message):
     print()
     print(f"==== {message} ====")
     print()
+
 
 if __name__ == "__main__":
     cool_print("STARTING PYPER TESTS")

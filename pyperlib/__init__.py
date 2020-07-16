@@ -1,9 +1,12 @@
+from pyperlib.utils import *
+from pyperlib.drawing import *
 import sys
 import re
 import os
 from pyperlib.settings import settings
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+
 
 def _check_if_executed_with_python():
     if not sys.argv:
@@ -24,9 +27,8 @@ def _check_if_executed_with_python():
     print()
     settings._is_executing_with_python = True
 
+
 _check_if_executed_with_python()
 
-from pyperlib.drawing import *
-from pyperlib.utils import *
 
 TIME = T = DELTA_TIME = DT = FRAME = F = 0
