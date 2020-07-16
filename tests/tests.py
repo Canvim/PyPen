@@ -44,13 +44,27 @@ class TestExamples(TestCase):
                 return_code = run_pyper_sketch(
                     os.path.join(examples_dir_path, example_filename))
                 self.assertEqual(return_code, 0)
+                print("OK")
     
-    def test_test_scene(self):
-        cool_print("Running tests/test_scene.py")
-        return_code = run_pyper_sketch(os.path.join(os.path.split(
-            os.path.realpath(__file__))[0], "..", "tests", "test_scene.py"))
-        
-        self.assertEqual(return_code, 0)
+    def test_all_test_scenes(self):
+        cool_print("Trying to run pyper command with timeout on all sketches in tests/test_scenes/")
+        test_scenes_dir_path = os.path.join(os.path.split(
+            os.path.realpath(__file__))[0], "test_scenes")
+
+        filename_to_return_code = {
+            "test_empty_file.py": 1,
+            "test_colors.py": 0,
+            "test_no_start_or_update.py": 1
+        }
+
+        for test_filename in os.listdir(test_scenes_dir_path):
+            if os.path.splitext(test_filename)[1] == ".py":
+                print()
+                print(f"Running {test_filename}")
+                return_code = run_pyper_sketch(
+                    os.path.join(test_scenes_dir_path, test_filename))
+                self.assertEqual(return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
+                print("OK")
 
 
 def run_pyper_sketch(example_path, custom_timeout=2):
