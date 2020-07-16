@@ -21,7 +21,7 @@ class TestExamples(TestCase):
 
         print(f"Running {file_name}")
 
-        returncode = run_pyper_sketch(screenshot_test_file_path, custom_timeout=3, extra_arguments=["--screenshot", "2"])
+        returncode = run_pyper_sketch(screenshot_test_file_path, custom_timeout=3, extra_arguments=["--screenshot", "2"], do_stdout=True)
 
         self.assertEqual(returncode, 0)
         self.assertTrue(os.path.isfile(screenshot_file_path))
@@ -90,13 +90,13 @@ class TestExamples(TestCase):
                 print("OK")
 
 
-def run_pyper_sketch(example_path, custom_timeout=2, extra_arguments=[]):
+def run_pyper_sketch(example_path, custom_timeout=2, extra_arguments=[], do_stdout=False):
     timeout_time = custom_timeout
     arguments = ["pyper", example_path, "--timeout", str(timeout_time)]
     arguments += extra_arguments
 
     print(' '.join(arguments))
-    return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL, stderr=sys.stderr)
+    return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL if not do_stdout else sys.stdout, stderr=sys.stderr)
     return return_code
 
 

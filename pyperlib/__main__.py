@@ -106,6 +106,11 @@ def main(arguments):
     is_running = True
     passed_time = frame_count = 0
 
+    def screenshot():
+        screenshot_path = path.join(getcwd(), f"{arguments.filename}.png")
+        print(f"Saving screenshot at {screenshot_path}")
+        pygame.image.save(display, screenshot_path)
+
     while is_running:
         # Handle events
         for event in pygame.event.get():
@@ -115,14 +120,17 @@ def main(arguments):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     is_running = False
+                elif event.key == pygame.K_F10:
+                    screenshot()
 
         delta_time = clock.tick(settings.fps if settings.fps > 0 else 1)/1000
         passed_time += delta_time
         frame_count += 1
 
         if arguments.screenshot >= 0:
-            if passed_time > arguments.screenshot:
-                pygame.image.save(display, f"{arguments.filename}.png")
+            if passed_time > arguments.screenshot and not settings._has_already_saved_forced_screenshot:
+                screenshot()
+                settings._has_already_saved_forced_screenshot = True
 
         if arguments.timeout > 0:
             if passed_time > arguments.timeout:
