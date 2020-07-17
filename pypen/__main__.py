@@ -2,60 +2,107 @@ import sys
 import argparse
 import time
 from os import path, getcwd
+
 from importlib import util as import_util
 
 from pypen.settings import settings
-
 import pygame
 
-display = pygame.display.set_mode((settings.width, settings.height),
-                                  pygame.SRCALPHA) if not settings._is_executing_with_python else None
+_argument_parser = argparse.ArgumentParser()
+
+def space_print(msg=""):
+    print()
+    print(msg)
+    print()
+
+def print_help(msg=""):
+    if msg:
+        space_print(msg)
+
+    _argument_parser.print_help(sys.stderr)
+    sys.exit(0)
 
 def cli():
+    global _argument_parser
     try:
-        main_argument_parser = argparse.ArgumentParser(
-            description="The PyPen CLI for managing PyPen Sketches", prog="pypen")
+        _argument_parser = argparse.ArgumentParser(description="The PyPen CLI for managing PyPen Sketches", prog="pypen")
+        _argument_parser.add_argument(
+            "-i",
+            "--init",
+            action="store_true",
+            help="Flag to create a new PyPen sketch which imports pypen and contains default functions.")
 
-        sub_argument_parsers = main_argument_parser.add_subparsers(help="'pypen run' for running sketches and 'pypen init' to create a new one.")
+        _argument_parser.add_argument("filename", nargs="?", help="The name/path of your PyPen Sketch.", default="")
+        _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
+        _argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
 
-        run_parser = sub_argument_parsers.add_parser("run", description="Command used to run sketches.")
-
-        run_parser.add_argument(
-            "filename", help="The name/path to the file that contains your PyPen Sketch.")
-
-        run_parser.add_argument("-f", "--fullscreen", action="store_true")
-
-        run_parser.add_argument(
-            "--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
-        
-        init_parser = sub_argument_parsers.add_parser("init", description="Optional command to create a default PyPen file with imports and default functions.")
-
-        init_parser.add_argument("filename", help="The name/path to the to-be-created PyPen (with or without .py extension)", default="new_pypen.py")
-
-        arguments = main_argument_parser.parse_args()
+        arguments = _argument_parser.parse_args()
 
         if len(sys.argv) == 1:
-            main_argument_parser.print_help(sys.stderr)
-            sys.exit(0)
+            print_help("It seems like you are running the pypen command without any arguments.\nHere is some help:")
+
+        if not arguments.init and not arguments.filename:
+            print_help("PyPen needs a path to a sketch in order to run it!\nPlease provide a path with 'pypen <path_to_sketch>'\nor run 'pypen --init <path_to_new_sketch>' to create a new one!")
+
+        if arguments.init:
+            path_to_new_sketch = arguments.filename if arguments.filename else settings.default_pypen_name
+            init(path_to_new_sketch)
 
         main(arguments)
     except argparse.ArgumentError as error:
         print(str(error))
-        sys.exit(2)
+        sys.exit(1)
+
+
+def init(path_to_new_file):
+    if path.splitext(path_to_new_file)[1] != ".py":
+        path_to_new_file += ".py"
+
+    pypen_path = path.join(getcwd(), path_to_new_file)
+    template = ""
+
+    try:
+        with open(path.join(path.realpath(__file__), "..", "pypen_template.py"), "r") as template_file:
+            template = template_file.read()
+    except EnvironmentError:
+        # In case PyPen is installed in a directory that doesn't have read access,
+        # it uses the below template instead of reading the template file
+        template = """from pypen import *
+
+
+def start():
+    settings.fps = 60
+
+
+def update():
+    clear()
+    rectangle(20, 20, 300, 400, "red")
+"""
+
+    try:
+        with open(pypen_path, "w") as new_file:
+            new_file.writelines(template)
+    except EnvironmentError:
+        space_print("Could not create file {}\nDo you have the right permissions?".format(pypen_path))
+        sys.exit(1)
+
+    space_print("'{0}' has been created!\nRun it using 'pypen {0}'".format(path_to_new_file))
+    sys.exit(0)
 
 
 def main(arguments):
-    try:
-        file_path = path.join(getcwd(), arguments.filename)
-        spec = import_util.spec_from_file_location("", file_path)
-        user_sketch = import_util.module_from_spec(spec)
-        spec.loader.exec_module(user_sketch)
-    except FileNotFoundError:
-        print()
-        print(f"Hmm, PyPen can't find '{arguments.filename}'.")
-        print("Are you sure that's the right path?")
-        print()
-        sys.exit(1)
+    if not arguments.init:
+        try:
+            file_path = path.join(getcwd(), arguments.filename)
+            spec = import_util.spec_from_file_location("", file_path)
+            user_sketch = import_util.module_from_spec(spec)
+            spec.loader.exec_module(user_sketch)
+        except FileNotFoundError:
+            print()
+            print(f"Hmm, PyPen can't find '{arguments.filename}'.")
+            print("Are you sure that's the right path?")
+            print()
+            sys.exit(1)
 
     try:
         user_sketch.TIME
@@ -98,12 +145,15 @@ def main(arguments):
 
         user_sketch.update()
 
+    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+
     pygame.init()
     pygame.display.set_caption(f"PyPen | {arguments.filename}")
 
     if settings._user_has_start:
         start()
 
+    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
     pygame.display.flip()
     clock = pygame.time.Clock()
 

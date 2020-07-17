@@ -4,7 +4,6 @@ from unittest import main, TestCase
 from subprocess import call, DEVNULL
 from pypen.utils.math import *
 
-
 class TestExamples(TestCase):
 
     def test_util_functions(self):
