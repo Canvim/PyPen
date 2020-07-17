@@ -1,23 +1,23 @@
-# Pyper
-[![Build Status](https://travis-ci.org/Canvim/Pyper.svg?branch=master)](https://travis-ci.org/Canvim/Pyper) [![PyPI - Version](https://img.shields.io/pypi/v/pyperlib.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pyperlib/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pyperlib?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pyperlib/) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/Pyper?color=purple&label=Size&logo=github)](https://github.com/Canvim/Pyper/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/Pyper/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/Pyper/?branch=master)
+# PyPen
+[![Build Status](https://travis-ci.org/Canvim/PyPen.svg?branch=master)](https://travis-ci.org/Canvim/PyPen) [![PyPI - Version](https://img.shields.io/pypi/v/pypen.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pypen/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pypen?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pypen/) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/PyPen?color=purple&label=Size&logo=github)](https://github.com/Canvim/PyPen/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/PyPen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/PyPen/?branch=master)
 
-A blank paper for your creative adventures in Python!
+Express your creativity through simple pens with PyPen!
 
-## What is Pyper?
-Pyper tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting user input.
+## What is PyPen?
+PyPen tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting user input.
 
-## How do I install Pyper?
+## How do I install PyPen?
 Easy! just do:
-* ```pip install pyperlib```
+* ```pip install pypen```
 
-Check out the package on [Pypi](https://pypi.org/project/pyperlib/)!
+Check out the package on [Pypi](https://pypi.org/project/pypen/)!
 
-## How do I use Pyper?
-Here is a bare-minimum example of a Pyper sketch:
+## How do I use PyPen?
+Here is a bare-minimum example of a PyPen sketch:
 
 ```python
 # example_001.py
-from pyperlib import *
+from pypen import *
 
 def start():
     settings.fps = 70
@@ -31,20 +31,19 @@ def update():
 ```
 
 Run it by calling:
-* ```pyper example_001.py```
-* (or ```pyperlib example_001.py```)
-* (or ```python -m pyperlib example_001.py```)
+* ```pypen example_001.py```
+* (or ```python -m pypen example_001.py```)
 
 ### More Examples!
-We have a folder filled with Pyper examples. [Check it out!](https://github.com/Canvim/Pyper/tree/master/examples)
+We have a folder filled with PyPen examples. [Check it out!](https://github.com/Canvim/PyPen/tree/master/examples)
 
-## How does Pyper work?
-Pyper utilizes pygame in the background for event-management, draw-calls and window-management.
+## How does PyPen work?
+PyPen utilizes pygame in the background for event-management, draw-calls and window-management.
 
 We felt like there was always a bunch of overhead needed to get a pygame to work, and it had some weird quirks which always made for a half-baked user experience.
 
-Pyper is basically doing all that boring stuff in the background and exposes simple drawing functions for you to use and express your creativity with.
+PyPen is basically doing all that boring stuff in the background and exposes simple drawing functions for you to use and express your creativity with.
 
 What are you waiting for?
 
-Install it now with ```pip install pyperlib```
+Install it now with ```pip install pypen```

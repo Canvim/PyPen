@@ -1,0 +1,72 @@
+CHANGES
+=======
+
+* Added Badge to README.md
+* More color cases supported: 0xffffff, [12, 12, 12] +with alpha versions
+* Added some more autopep8 flags
+* Added autopep8 settings to setup.cfg
+* Added autopep8 settings to setup.cfg
+* More colors and PEP-8
+* Fixed lookup time for \_COLORS\_CACHE
+* Support for more color types and some error handling
+* some primitives added
+* new travis.yml
+* updated travis.yml
+* Pygame README.md
+* Migration to pygame
+* Remove moderngl
+* More tests, rectangle() and initial move to pyglet
+* Updated README.md again..
+* Updated README.md
+* Fixed error
+* Better python check, expose math and more
+* Added fill\_screen and fill
+* Initial Implementation of Context, Settings and Colors
+* Testing bump to 0.0.3
+* Re-enabled 'pyperlib' command
+
+v0.0.2
+------
+
+* Styling
+* Open GL 3.0.0
+* Added Before Install Steps to travis
+* Better travis.yml
+* Initial Switch to Pyglet
+* Fixed tests.py for headless runs
+* .travis.yml update for new tests 1
+* Wrote test to run all examples
+* Initial Migration of Testing to tests.py
+* More README
+* Updated README
+* Moved Examples To This Repo
+* modern\_gl hacked
+* Cesar Takes Over
+* Testing Travis.yml scripts
+* Test travis scripts
+* Lol
+* Fixed so that --fullscreen is stored as a bool
+* Import sys to CLI
+* WSL commit test
+* Added Josefin Example
+* Fixed Broken \_\_main\_\_
+* Fixed setup.py
+* Fixed \_\_main\_\_.py
+* Removed old \_\_version\_\_
+* Updated .travis.yml
+* Removed pypy from .travis.yml
+* Better .travis.yml
+* Updated README.md
+* Preparing for Travis and pbr setup
+* Updated README.md
+* Added moderngl and moderngl-window deps
+* Added \_\_version\_\_ and Initial CLI
+* Added Pyper Class
+* Fixed README.md
+* Added Shields to README.md
+* Fixed Broken Version
+* Bumped version for testings
+* Pypi Folder Structure Fixes
+* Update LICENSE
+* Initial Commit and File Structure
+* Initial commit

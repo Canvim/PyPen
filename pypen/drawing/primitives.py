@@ -1,5 +1,5 @@
-from pyperlib.drawing.color import Color
-from pyperlib.__main__ import display
+from pypen.drawing.color import Color
+from pypen.__main__ import display
 
 import pygame
 

@@ -2,7 +2,7 @@ import sys
 import os
 from unittest import main, TestCase
 from subprocess import call, DEVNULL
-from pyperlib.utils.math import *
+from pypen.utils.math import *
 
 
 class TestExamples(TestCase):
@@ -34,7 +34,7 @@ class TestExamples(TestCase):
         print("lerp_unclamped OK")
 
     def test_all_examples(self):
-        cool_print("Trying to run pyper command with timeout on all sketches in examples/")
+        cool_print("Trying to run pypen command with timeout on all sketches in examples/")
         examples_dir_path = os.path.join(os.path.split(
             os.path.realpath(__file__))[0], "..", "examples")
 
@@ -42,13 +42,13 @@ class TestExamples(TestCase):
             if os.path.splitext(example_filename)[1] == ".py":
                 print()
                 print(f"Running {example_filename}")
-                return_code = run_pyper_sketch(
+                return_code = run_pypen_sketch(
                     os.path.join(examples_dir_path, example_filename))
                 self.assertEqual(return_code, 0)
                 print("OK")
 
     def test_all_test_scenes(self):
-        cool_print("Trying to run pyper command with timeout on all sketches in tests/test_scenes/")
+        cool_print("Trying to run pypen command with timeout on all sketches in tests/test_scenes/")
         test_scenes_dir_path = os.path.join(os.path.split(
             os.path.realpath(__file__))[0], "test_scenes")
 
@@ -62,16 +62,16 @@ class TestExamples(TestCase):
             if os.path.splitext(test_filename)[1] == ".py":
                 print()
                 print(f"Running {test_filename}")
-                return_code = run_pyper_sketch(
+                return_code = run_pypen_sketch(
                     os.path.join(test_scenes_dir_path, test_filename))
                 self.assertEqual(
                     return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
                 print("OK")
 
 
-def run_pyper_sketch(example_path, custom_timeout=2):
+def run_pypen_sketch(example_path, custom_timeout=2):
     timeout_time = custom_timeout
-    arguments = ["pyper", example_path, "--timeout", str(timeout_time)]
+    arguments = ["pypen", example_path, "--timeout", str(timeout_time)]
 
     print(' '.join(arguments))
     return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL, stderr=sys.stderr)

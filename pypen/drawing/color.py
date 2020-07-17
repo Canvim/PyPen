@@ -1,7 +1,7 @@
 import colorsys
 import re
 
-from pyperlib.utils.math import clamp
+from pypen.utils.math import clamp
 from pygame.colordict import THECOLORS as _PYGAME_COLORS
 
 _COLORS = {
