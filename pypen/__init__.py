@@ -1,12 +1,13 @@
-from pypen.utils import *
-from pypen.drawing import *
-import sys
-import re
 import os
-from pypen.settings import settings
 
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
+import sys
+import re
+
+from pypen.utils import *
+from pypen.drawing import *
+from pypen.settings import settings
 
 def _check_if_executed_with_python():
     if not sys.argv:

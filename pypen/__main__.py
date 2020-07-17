@@ -11,24 +11,31 @@ import pygame
 display = pygame.display.set_mode((settings.width, settings.height),
                                   pygame.SRCALPHA) if not settings._is_executing_with_python else None
 
-
 def cli():
     try:
-        argument_parser = argparse.ArgumentParser(
+        main_argument_parser = argparse.ArgumentParser(
             description="The PyPen CLI for managing PyPen Sketches", prog="pypen")
 
-        argument_parser.add_argument(
+        sub_argument_parsers = main_argument_parser.add_subparsers(help="'pypen run' for running sketches and 'pypen init' to create a new one.")
+
+        run_parser = sub_argument_parsers.add_parser("run", description="Command used to run sketches.")
+
+        run_parser.add_argument(
             "filename", help="The name/path to the file that contains your PyPen Sketch.")
 
-        argument_parser.add_argument("-f", "--fullscreen", action="store_true")
+        run_parser.add_argument("-f", "--fullscreen", action="store_true")
 
-        argument_parser.add_argument(
+        run_parser.add_argument(
             "--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
+        
+        init_parser = sub_argument_parsers.add_parser("init", description="Optional command to create a default PyPen file with imports and default functions.")
 
-        arguments = argument_parser.parse_args()
+        init_parser.add_argument("filename", help="The name/path to the to-be-created PyPen (with or without .py extension)", default="new_pypen.py")
+
+        arguments = main_argument_parser.parse_args()
 
         if len(sys.argv) == 1:
-            argument_parser.print_help(sys.stderr)
+            main_argument_parser.print_help(sys.stderr)
             sys.exit(0)
 
         main(arguments)
