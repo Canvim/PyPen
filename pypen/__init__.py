@@ -1,12 +1,7 @@
-from pypen.utils import *
-from pypen.drawing import *
 import sys
 import re
 import os
 from pypen.settings import settings
-
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
-
 
 def _check_if_executed_with_python():
     if not sys.argv:
@@ -30,5 +25,12 @@ def _check_if_executed_with_python():
 
 _check_if_executed_with_python()
 
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+
+from pypen.utils import *
+from pypen.drawing import *
+
 
 TIME = T = DELTA_TIME = DT = FRAME = F = 0
+WIDTH = settings.width
+HEIGHT = settings.height

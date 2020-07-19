@@ -3,6 +3,7 @@ import os
 from unittest import main, TestCase
 from subprocess import call, DEVNULL
 from pypen.utils.math import *
+from pypen import settings
 
 
 class TestExamples(TestCase):
@@ -41,7 +42,7 @@ class TestExamples(TestCase):
         for example_filename in os.listdir(examples_dir_path):
             if os.path.splitext(example_filename)[1] == ".py":
                 print()
-                print(f"Running {example_filename}")
+                print("Running {}".format(example_filename))
                 return_code = run_pypen_sketch(
                     os.path.join(examples_dir_path, example_filename))
                 self.assertEqual(return_code, 0)
@@ -61,20 +62,27 @@ class TestExamples(TestCase):
         for test_filename in os.listdir(test_scenes_dir_path):
             if os.path.splitext(test_filename)[1] == ".py":
                 print()
-                print(f"Running {test_filename}")
+                print("Running {}".format(test_filename))
                 return_code = run_pypen_sketch(
                     os.path.join(test_scenes_dir_path, test_filename))
-                self.assertEqual(
-                    return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
+                self.assertEqual(return_code, filename_to_return_code[test_filename] if test_filename in filename_to_return_code else 0)
                 print("OK")
 
+    def test_init(self):
+        cool_print("Trying to run pypen --init")
+        arguments = ["pypen", "--init", os.path.join(os.path.split(os.path.realpath(__file__))[0], "test_scenes", "test_init.py")]
+        return_code = call(arguments, timeout=4, stdout=DEVNULL, stderr=sys.stderr)
+        print(' '.join(arguments))
+        self.assertEqual(return_code, 0)
+        print("OK")
 
-def run_pypen_sketch(example_path, custom_timeout=2):
+
+def run_pypen_sketch(example_path, custom_timeout=2, use_stdout=False):
     timeout_time = custom_timeout
     arguments = ["pypen", example_path, "--timeout", str(timeout_time)]
 
     print(' '.join(arguments))
-    return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL, stderr=sys.stderr)
+    return_code = call(arguments, timeout=timeout_time*4, stdout=DEVNULL if not use_stdout else sys.stdout, stderr=sys.stderr)
     return return_code
 
 
@@ -82,7 +90,7 @@ def cool_print(message):
     print()
     print()
     print()
-    print(f"==== {message} ====")
+    print("==== {} ====".format(message))
     print()
 
 
