@@ -136,24 +136,30 @@ def main(arguments):
 
     def start():
         user_sketch.start()
-        update()
+        if settings._user_has_update:
+            update()
 
     def update(passed_time=0, delta_time=0, frame_count=0):
+        if not settings._user_has_update:
+            return
         user_sketch.TIME = user_sketch.T = passed_time
         user_sketch.DELTA_TIME = user_sketch.DT = delta_time
         user_sketch.FRAME = user_sketch.F = frame_count
 
         user_sketch.update()
 
-    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
-
     pygame.init()
     pygame.display.set_caption(f"PyPen | {arguments.filename}")
 
+    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+
     if settings._user_has_start:
+        initial_settings = settings
         start()
 
-    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+        if settings.width != initial_settings.width or settings.height != initial_settings.height:
+            pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+
     pygame.display.flip()
     clock = pygame.time.Clock()
 

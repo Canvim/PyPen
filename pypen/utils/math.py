@@ -10,6 +10,11 @@ from math import pi as PI
 from math import tau as TAU
 from math import e as E
 
+from random import random as py_random
+
+def random(x=1):
+    return py_random() * x
+
 
 def clamp(value, min, max):
     return (value <= min)*min + (value >= max)*max + value*(value > min and value < max)
