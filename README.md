@@ -1,12 +1,12 @@
 # PyPen
 [![Build Status](https://travis-ci.org/Canvim/PyPen.svg?branch=master)](https://travis-ci.org/Canvim/PyPen) [![PyPI - Version](https://img.shields.io/pypi/v/pypen.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pypen/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pypen?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pypen/) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/PyPen?color=purple&label=Size&logo=github)](https://github.com/Canvim/PyPen/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/PyPen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/PyPen/?branch=master)
 
-Express your creativity through simple pens with PyPen!
+Express your creativity in Python through simple PyPen sketches!
 
 # What is PyPen?
 PyPen tries to be the end-all solution to creative coding in Python. It provides very easy-to-use functions for drawing primitives to the screen and getting user input.
 
-We felt like there was always a bunch of overhead needed to get nice and simple HTML-canvas-like graphics to work in Python and that it always made for a half-baked user experience.
+We felt like there was always a bunch of overhead needed to get nice and simple HTML-canvas-like graphics to work in Python and that this overhead always made for a half-baked user experience.
 
 PyPen is basically doing all of the boring stuff in the background and exposes simple functions like ```clear()```, ```circle(x, y, radius)```, ```rectangle(x, y, width, height)``` and many more for you to use and express your creativity with.
 

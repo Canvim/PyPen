@@ -70,7 +70,7 @@ class TestExamples(TestCase):
 
     def test_init(self):
         cool_print("Trying to run pypen --init")
-        arguments = ["pypen", "--init"]
+        arguments = ["pypen", "--init", os.path.join(os.path.split(os.path.realpath(__file__))[0], "test_scenes", "test_init.py")]
         return_code = call(arguments, timeout=4, stdout=DEVNULL, stderr=sys.stderr)
         print(' '.join(arguments))
         self.assertEqual(return_code, 0)
