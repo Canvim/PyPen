@@ -30,7 +30,26 @@ os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 from pypen.utils import *
 from pypen.drawing import *
 
-
 TIME = T = DELTA_TIME = DT = FRAME = F = 0
 WIDTH = settings.width
 HEIGHT = settings.height
+
+
+def grid(spacing=1, start_x=0, start_y=0):
+    global HEIGHT, WIDTH
+    spacing = max(1, abs(spacing))
+
+    x = start_x
+    y = start_y
+    while y <= HEIGHT:
+        yield x, y
+
+        x = (x + spacing)
+
+        if x > WIDTH:
+            x = start_x
+            y += spacing
+
+
+def pixels():
+    return grid(1, 0, 0)
