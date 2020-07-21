@@ -31,3 +31,6 @@ def lerp(start, end, t):
 
 def mix(a, b, t):
     return lerp(a, b, t)
+
+def remap(n, start1, stop1, start2, stop2):
+  return ((n-start1)/(stop1-start1))*(stop2-start2)+start2

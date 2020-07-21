@@ -41,12 +41,12 @@ def grid(spacing=1, start_x=0, start_y=0):
 
     x = start_x
     y = start_y
-    while y <= HEIGHT:
+    while y < HEIGHT:
         yield x, y
 
         x = (x + spacing)
 
-        if x > WIDTH:
+        if x >= WIDTH:
             x = start_x
             y += spacing
 
