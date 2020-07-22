@@ -2,5 +2,9 @@ from pypen import *
 
 
 def start():
-    for x, y in pixels():
-        rectangle(x, y, 1, 1, (random(255), random(255), random(255)))
+    settings.fps = 70
+
+
+def update():
+    clear()
+    arc(320, 240, 600, 400, PI*sin(TIME+1.6), PI*sin(TIME))

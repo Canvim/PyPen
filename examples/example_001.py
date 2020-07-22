@@ -2,9 +2,9 @@ from pypen import *
 
 
 def start():
-    settings.fps = 70
+    settings.fps = 120
 
 
 def update():
-    clear()
-    arc(320, 240, 600, 400, PI*sin(TIME+1.6), PI*sin(TIME))
+    fill("grey")
+    rectangle(100 + sin(TIME) * 50, 50, 200, 100, "red")
