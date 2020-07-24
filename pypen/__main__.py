@@ -38,7 +38,7 @@ def cli():
         _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
         _argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
         _argument_parser.add_argument("-v", "--version",
-                                      help="Displays the currently installed PyPen's version-",
+                                      help="Displays the currently installed PyPen's version.",
                                       action="version",
                                       version=pkg_resources.get_distribution("pypen").version)
 
