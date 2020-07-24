@@ -7,6 +7,7 @@ from importlib import util as import_util
 
 from pypen.settings import settings
 import pygame
+import pkg_resources
 
 _argument_parser = argparse.ArgumentParser()
 
@@ -16,6 +17,7 @@ def space_print(msg=""):
     print()
 
 def print_help(msg=""):
+    global _argument_parser
     if msg:
         space_print(msg)
 
@@ -35,6 +37,10 @@ def cli():
         _argument_parser.add_argument("filename", nargs="?", help="The name/path of your PyPen Sketch.", default="")
         _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
         _argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
+        _argument_parser.add_argument("-v", "--version",
+                                      help="Displays the currently installed PyPen's version-",
+                                      action="version",
+                                      version=pkg_resources.get_distribution("pypen").version)
 
         arguments = _argument_parser.parse_args()
 
