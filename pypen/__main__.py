@@ -48,6 +48,9 @@ def cli():
             path_to_new_sketch = arguments.filename if arguments.filename else settings.default_pypen_name
             init(path_to_new_sketch)
 
+        if path.splitext(arguments.filename)[1] != ".py":
+            arguments.filename = "{}.py".format(arguments.filename)
+
         main(arguments)
     except argparse.ArgumentError as error:
         print(str(error))
@@ -75,7 +78,7 @@ def start():
 
 
 def update():
-    clear()
+    fill("orange")
     rectangle(20, 20, 300, 400, "red")
 """
 
@@ -149,16 +152,16 @@ def main(arguments):
         user_sketch.update()
 
     pygame.init()
-    pygame.display.set_caption(f"PyPen | {arguments.filename}")
+    pygame.display.set_caption(f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}")
 
-    pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+    pygame.display.set_mode((settings.width, settings.height), pygame.RESIZABLE)
 
     if settings._user_has_start:
         initial_settings = settings
         start()
 
         if settings.width != initial_settings.width or settings.height != initial_settings.height:
-            pygame.display.set_mode((settings.width, settings.height), pygame.SRCALPHA)
+            pygame.display.set_mode((settings.width, settings.height), pygame.RESIZABLE)
 
     pygame.display.flip()
     clock = pygame.time.Clock()

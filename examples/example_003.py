@@ -11,7 +11,7 @@ def update():
 
 
 def draw_pattern():
-    for i in range(0, 100):
-        for j in range(0, 100):
-            if random(1) > 0.5:
-                rectangle(i*10, j*10, 8, 8, "#F34060")
+    for x, y in grid(spacing=10):
+        if random() > 0.5:
+            rectangle(x, y, 8, 8, "#F34060")
+        print(x, y)
