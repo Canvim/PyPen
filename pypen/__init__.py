@@ -25,7 +25,6 @@ def _check_if_executed_with_python():
 
 _check_if_executed_with_python()
 
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
 from pypen.utils import *
 from pypen.drawing import *

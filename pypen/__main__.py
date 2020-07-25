@@ -2,12 +2,12 @@ import sys
 import argparse
 import time
 from os import path, getcwd
-
 from importlib import util as import_util
+import pkg_resources
+import tkinter
 
 from pypen.settings import settings
-import pygame
-import pkg_resources
+import cairo
 
 _argument_parser = argparse.ArgumentParser()
 
@@ -157,46 +157,44 @@ def main(arguments):
 
         user_sketch.update()
 
-    pygame.init()
-    pygame.display.set_caption(f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}")
+    window_title = f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}"
 
-    pygame.display.set_mode((settings.width, settings.height), pygame.RESIZABLE)
+    root = tkinter.Tk()
+
+    root.geometry("{}x{}".format(user_sketch.WIDTH, user_sketch.HEIGHT))
+
+    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, user_sketch.WIDTH, user_sketch.HEIGHT)
+    context = cairo.Context(surface)
+    context.scale(user_sketch.WIDTH, user_sketch.HEIGHT)
+    context.rectangle(0, 0, 1, 1)
+    context.set_source_rgba(1.0, 0.0, 0, 0.8)
+    context.fill()
+
+    # image = Image.frombuffer("RGBA", (user_sketch.WIDTH, user_sketch.HEIGHT), surface.get_data().tobytes(), "raw", "BGRA", 0, 1)
+    # photo = tkinter.PhotoImage(image)
+
+    # photo_label = tkinter.Label(image=photo)
+    # photo_label.grid()
+    # photo_label.image = photo
+
+    root.mainloop()
 
     if settings._user_has_start:
-        initial_settings = settings
         start()
-
-        if settings.width != initial_settings.width or settings.height != initial_settings.height:
-            pygame.display.set_mode((settings.width, settings.height), pygame.RESIZABLE)
-
-    pygame.display.flip()
-    clock = pygame.time.Clock()
 
     is_running = True
     passed_time = frame_count = 0
 
-    while is_running:
-        # Handle events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                is_running = False
+    delta_time = 0.01
+    passed_time += delta_time
+    frame_count += 1
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    is_running = False
+    if arguments.timeout > 0:
+        if passed_time > arguments.timeout:
+            is_running = False
 
-        delta_time = clock.tick(settings.fps if settings.fps > 0 else 1)/1000
-        passed_time += delta_time
-        frame_count += 1
-
-        if arguments.timeout > 0:
-            if passed_time > arguments.timeout:
-                is_running = False
-
-        if settings._user_has_update:
-            update(passed_time, delta_time, frame_count)
-
-        pygame.display.flip()
+    if settings._user_has_update:
+        update(passed_time, delta_time, frame_count)
 
 
 if __name__ == "__main__":

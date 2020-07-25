@@ -2,7 +2,6 @@ import colorsys
 import re
 
 from pypen.utils.math import clamp
-from pygame.colordict import THECOLORS as _PYGAME_COLORS
 
 _COLORS = {
     "default_background_color": (0),
@@ -12,9 +11,6 @@ _COLORS = {
     "green": (30, 200, 30),
     "blue": (30, 30, 200)
 }
-
-_PYGAME_COLORS.update(_COLORS)
-_COLORS = _PYGAME_COLORS
 
 _COLORS_CACHE = {}
 
