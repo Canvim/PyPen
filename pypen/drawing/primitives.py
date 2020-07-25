@@ -1,6 +1,5 @@
 from pypen.drawing.color import Color
-
-import pygame
+import cairo
 
 
 def clear_screen():
