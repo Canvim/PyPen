@@ -1,8 +1,11 @@
 from pypen import *
 from math import sqrt
 
-
 def start():
+    settings.fps = 60
+
+
+def update():
     pixel_size = 2
     points = []
     for i in range(10):

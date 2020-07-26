@@ -17,10 +17,10 @@ _COLORS_CACHE = {}
 
 class Color:
     def __init__(self, r=0, g=0, b=0, a=255):
-        self.r = int(clamp(r, 0, 255))
-        self.g = int(clamp(g, 0, 255))
-        self.b = int(clamp(b, 0, 255))
-        self.a = int(clamp(a, 0, 255))
+        self.r = clamp(r, 0, 255)/255
+        self.g = clamp(g, 0, 255)/255
+        self.b = clamp(b, 0, 255)/255
+        self.a = clamp(a, 0, 255)/255
 
     def rgb(self):
         return self.r, self.g, self.b

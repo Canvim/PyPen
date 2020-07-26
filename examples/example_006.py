@@ -6,7 +6,7 @@ def start():
 
 
 def update():
-    fill("#E33050")
+    fill_screen("#E33050")
     i = 0
     for x, y in grid(50):
         i += 1
