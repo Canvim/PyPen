@@ -28,20 +28,20 @@ colors = ["0xF2Fab4",
           (1000.345, 23423423.2, 23.0),
           30,
           [35, 123, 0, 34],
-          [35, 123, 0, 200]]*2
+          [35, 123, 0, 200]]*3
 
 
 def update():
     global colors
     clear()
-    rectangle(0, 0, 640, 480/2, colors[0])
-    rectangle(0, 480/2, 640, 480/2, colors[len(colors)-1])
+    rectangle(0, 0, WIDTH, HEIGHT/2, colors[0])
+    rectangle(0, HEIGHT/2, WIDTH, HEIGHT/2, colors[len(colors)-1])
 
     i = 0
     for color in colors:
         y = 80 + sin(0.3*(TIME*8 + i))*20
 
-        d = 640/len(colors)
+        d = WIDTH/len(colors)
 
         rectangle(i*d, y, 30, 200, color)
         circle(i*d, y + 20, 40, color)

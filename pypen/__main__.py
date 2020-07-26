@@ -4,12 +4,11 @@ import time
 from os import path, getcwd
 from importlib import util as import_util
 import pkg_resources
-import tkinter
 
 from pypen.settings import settings
-from pypen.drawing.primitives import PrimitivesDrawer
-import cairo
-from PIL import Image, ImageTk
+from pypen.drawing.pypen_window import PyPenWindow
+
+import pyglet
 
 _argument_parser = argparse.ArgumentParser()
 
@@ -38,7 +37,7 @@ def cli():
 
         _argument_parser.add_argument("filename", nargs="?", help="The name/path of your PyPen Sketch.", default="")
         _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
-        _argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
+        _argument_parser.add_argument("--timeout", help="Timeout in milliseconds. Window will automatically close after this timeout.", type=float, required=False, default=0.0)
         _argument_parser.add_argument("-v", "--version",
                                       help="Displays the currently installed PyPen's version.",
                                       action="version",
@@ -101,84 +100,6 @@ def update():
     sys.exit(0)
 
 
-
-class PyPenWindow(tkinter.Tk):
-    def __init__(self, user_sketch=None, window_title="Example", arguments={}, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.user_sketch = user_sketch
-        self.window_title = window_title
-        self.arguments = arguments
-        self.called_after_time = self.passed_time = self.delta_time = self.frame_count = 0
-
-        self.geometry("{}x{}".format(self.user_sketch.settings.width, self.user_sketch.settings.height))
-
-        self._surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, self.user_sketch.settings.width, self.user_sketch.settings.height)
-        self._context = cairo.Context(self._surface)
-
-        self.primitives_drawer = PrimitivesDrawer(self._surface, self._context, self.user_sketch.settings)
-
-        self.fix_primitive_functions()
-        self.call_user_start()
-
-        self._image = Image.frombuffer("RGBA", (self.user_sketch.settings.width, self.user_sketch.settings.height), self.primitives_drawer.surface.get_data().tobytes(), "raw", "BGRA", 0, 1)
-        self.photo = ImageTk.PhotoImage(self._image)
-
-        self.label = tkinter.Label(self, image=self.photo)
-        self.label.pack(expand=True, fill="both")
-
-        if self.arguments.timeout:
-            self.after(int(self.arguments.timeout), self.destroy)
-
-        self.start_time = time.time()
-        self.call_pypen_loop()
-        self.mainloop()
-
-
-    def fix_primitive_functions(self):
-        self.user_sketch.fill_screen = self.primitives_drawer.fill_screen
-        self.user_sketch.clear = self.primitives_drawer.clear
-        self.user_sketch.clear_screen = self.primitives_drawer.clear_screen
-
-        self.user_sketch.rectangle = self.primitives_drawer.rectangle
-        self.user_sketch.circle = self.primitives_drawer.circle
-        self.user_sketch.arc = self.primitives_drawer.arc
-
-
-    def call_user_start(self):
-        if not self.user_sketch.settings._user_has_start:
-            return
-        self.user_sketch.start()
-
-    def call_user_update(self):
-        if not self.user_sketch.settings._user_has_update:
-            return
-        self.user_sketch.TIME = self.user_sketch.T = self.passed_time
-        self.user_sketch.FRAME = self.user_sketch.F = self.frame_count
-
-        self.user_sketch.update()
-        self.user_sketch.DELTA_TIME = self.user_sketch.DT = time.time() - self.called_after_time
-
-
-    def pypen_loop(self):
-        self.call_user_update()
-
-        self.primitives_drawer.update_settings(self.user_sketch.settings)
-        self._image = Image.frombuffer("RGBA", (self.user_sketch.settings.width, self.user_sketch.settings.height), self.primitives_drawer.surface.get_data().tobytes(), "raw", "BGRA", 0, 1)
-        self.photo = ImageTk.PhotoImage(self._image)
-        self.label.configure(image=self.photo)
-
-    def call_pypen_loop(self):
-        self.pypen_loop()
-
-        self.delta_time = 0.01
-        self.passed_time = time.time() - self.start_time
-        self.frame_count += 1
-
-        self.called_after_time = time.time()
-        self.after(int(1000/self.user_sketch.settings.fps), self.call_pypen_loop)
-
-
 def main(arguments):
     if not arguments.init:
         try:
@@ -225,6 +146,10 @@ def main(arguments):
 
     window_title = f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}"
     pypen_window = PyPenWindow(user_sketch, window_title, arguments)
+
+
+
+    pyglet.app.run()
 
 
 if __name__ == "__main__":

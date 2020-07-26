@@ -2,14 +2,14 @@ from pypen import *
 from math import sqrt
 
 def start():
-    settings.fps = 60
+    settings.fps = 5
 
 
 def update():
     pixel_size = 2
     points = []
-    for i in range(10):
-        points.append((random(640), random(480)))
+    for i in range(3):
+        points.append((random(WIDTH), random(HEIGHT)))
 
     for x, y in grid(pixel_size):
 
