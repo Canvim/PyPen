@@ -32,16 +32,23 @@ class PyPenWindow(window.Window):
         if self.arguments.timeout:
             clock.schedule_once(self.destroy, self.arguments.timeout/1000)
 
-
     def destroy(self, *args):
         self.close()
-
 
     def on_draw(self):
         gl.glEnable(gl.GL_TEXTURE_2D)
 
         gl.glBindTexture(gl.GL_TEXTURE_2D, self.primitives_drawer.texture.id)
-        gl.glTexImage2D(gl.GL_TEXTURE_2D, 0, gl.GL_RGBA, self.primitives_drawer.settings.width, self.primitives_drawer.settings.height, 0, gl.GL_BGRA, gl.GL_UNSIGNED_BYTE, self.primitives_drawer.surface_data)
+        gl.glTexImage2D(
+            gl.GL_TEXTURE_2D,
+            0,
+            gl.GL_RGBA,
+            self.primitives_drawer.settings.width,
+            self.primitives_drawer.settings.height,
+            0,
+            gl.GL_BGRA,
+            gl.GL_UNSIGNED_BYTE,
+            self.primitives_drawer.surface_data)
 
         gl.glBegin(gl.GL_QUADS)
         gl.glTexCoord2f(0.0, 1.0)
@@ -54,15 +61,12 @@ class PyPenWindow(window.Window):
         gl.glVertex2i(0, self.primitives_drawer.settings.height)
         gl.glEnd()
 
-
-
     # def on_resize(self, width, height):
         # pass
         # self.user_sketch.settings.width = max(width, 1)
         # self.user_sketch.settings.height = max(height, 1)
 
         # self.primitives_drawer.update_settings(self.user_sketch.settings)
-
 
     def fix_primitive_functions(self):
         self.user_sketch.fill_screen = self.primitives_drawer.fill_screen
@@ -73,13 +77,11 @@ class PyPenWindow(window.Window):
         self.user_sketch.circle = self.primitives_drawer.circle
         self.user_sketch.arc = self.primitives_drawer.arc
 
-
     def call_user_start(self, dt):
         if self.user_sketch.settings._user_has_start:
             self.user_sketch.start()
         self.set_visible()
         clock.schedule_interval_soft(self.pypen_loop, 1/self.user_sketch.settings.fps)
-
 
     def call_user_update(self):
         self.user_sketch.TIME = self.user_sketch.T = self.passed_time
@@ -93,7 +95,6 @@ class PyPenWindow(window.Window):
         if self.user_sketch.settings._user_has_update:
             self.user_sketch.update()
 
-
     def pypen_loop(self, dt, *args):
         self.delta_time = dt
         self.passed_time += dt
@@ -102,4 +103,3 @@ class PyPenWindow(window.Window):
         clock.unschedule(self.pypen_loop)
         self.call_user_update()
         clock.schedule_interval_soft(self.pypen_loop, 1/self.user_sketch.settings.fps)
-

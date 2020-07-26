@@ -2,6 +2,7 @@ import colorsys
 import re
 
 from pypen.utils.math import clamp
+from pypen.drawing.css_colors import _CSS_COLORS
 
 _COLORS = {
     "default_background_color": (0),
@@ -11,6 +12,9 @@ _COLORS = {
     "green": (30, 200, 30),
     "blue": (30, 30, 200)
 }
+
+_CSS_COLORS.update(_COLORS)
+_COLORS = _CSS_COLORS
 
 _COLORS_CACHE = {}
 

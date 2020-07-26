@@ -37,7 +37,12 @@ def cli():
 
         _argument_parser.add_argument("filename", nargs="?", help="The name/path of your PyPen Sketch.", default="")
         _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
-        _argument_parser.add_argument("--timeout", help="Timeout in milliseconds. Window will automatically close after this timeout.", type=float, required=False, default=0.0)
+        _argument_parser.add_argument(
+            "--timeout",
+            help="Timeout in milliseconds. Window will automatically close after this timeout.",
+            type=float,
+            required=False,
+            default=0.0)
         _argument_parser.add_argument("-v", "--version",
                                       help="Displays the currently installed PyPen's version.",
                                       action="version",
@@ -146,8 +151,6 @@ def main(arguments):
 
     window_title = f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}"
     pypen_window = PyPenWindow(user_sketch, window_title, arguments)
-
-
 
     pyglet.app.run()
 

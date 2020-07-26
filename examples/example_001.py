@@ -2,9 +2,9 @@ from pypen import *
 
 
 def start():
-    rectangle(0, 0, 100, 100, "red")
+    settings.fps = 60
 
 
 def update():
-    fill_screen("blue")
-    rectangle(100 + sin(TIME*5) * 50, 50, 200, 100, "red")
+    fill_screen("orange")
+    rectangle(20, 20, 300, 400, "red")

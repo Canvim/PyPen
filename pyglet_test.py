@@ -7,7 +7,7 @@ from pyglet import app, clock, gl, image, window
 width, height = 400, 400
 
 surface_data = (ctypes.c_ubyte * (width * height * 4))()
-surface = cairo.ImageSurface.create_for_data (surface_data, cairo.FORMAT_ARGB32, width, height, width * 4)
+surface = cairo.ImageSurface.create_for_data(surface_data, cairo.FORMAT_ARGB32, width, height, width * 4)
 context = cairo.Context(surface)
 
 texture = image.Texture.create_for_size(gl.GL_TEXTURE_2D, width, height, gl.GL_RGBA)
@@ -49,6 +49,7 @@ def on_draw():
     gl.glTexCoord2f(0.0, 0.0)
     gl.glVertex2i(0, height)
     gl.glEnd()
+
 
 # call clock.schedule_update here to update the ImageSurface every frame
 clock.schedule_interval(update, 1/60)
