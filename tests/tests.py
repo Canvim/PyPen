@@ -95,5 +95,5 @@ def cool_print(message):
 
 
 if __name__ == "__main__":
-    cool_print("STARTING PYPER TESTS")
+    cool_print("STARTING PYPEN TESTS")
     main()
