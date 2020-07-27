@@ -9,7 +9,7 @@ from pyglet import clock, gl, image, window, canvas
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
-        super().__init__(visible=False, resizable=False, fullscreen=arguments.fullscreen)
+        super().__init__(visible=False, resizable=True, fullscreen=arguments.fullscreen)
 
         self.user_sketch = user_sketch
         self.window_title = window_title
@@ -59,13 +59,20 @@ class PyPenWindow(window.Window):
         gl.glTexCoord2f(0.0, 0.0)
         gl.glVertex2i(0, self.primitives_drawer.settings.height)
         gl.glEnd()
+    
+    def on_resize(self, width, height):
+        super().on_resize(width, height)
 
-    # def on_resize(self, width, height):
-        # pass
-        # self.user_sketch.settings.width = max(width, 1)
-        # self.user_sketch.settings.height = max(height, 1)
+        if width <= 0 or height <= 0:
+            return
+            
+        self.user_sketch.settings.width = max(width, 1)
+        self.user_sketch.settings.height = max(height, 1)
 
-        # self.primitives_drawer.update_settings(self.user_sketch.settings)
+        self.primitives_drawer.update_settings(self.user_sketch.settings)
+        
+
+    
 
     def fix_primitive_functions(self):
         self.user_sketch.fill_screen = self.primitives_drawer.fill_screen
