@@ -71,13 +71,13 @@ class TestExamples(TestCase):
     def test_init(self):
         cool_print("Trying to run pypen --init")
         arguments = ["pypen", "--init", os.path.join(os.path.split(os.path.realpath(__file__))[0], "test_scenes", "test_init.py")]
-        return_code = call(arguments, timeout=4, stdout=DEVNULL, stderr=sys.stderr)
+        return_code = call(arguments, timeout=4000, stdout=DEVNULL, stderr=sys.stderr)
         print(' '.join(arguments))
         self.assertEqual(return_code, 0)
         print("OK")
 
 
-def run_pypen_sketch(example_path, custom_timeout=2, use_stdout=False):
+def run_pypen_sketch(example_path, custom_timeout=2000, use_stdout=False):
     timeout_time = custom_timeout
     arguments = ["pypen", example_path, "--timeout", str(timeout_time)]
 

@@ -29,23 +29,22 @@ _check_if_executed_with_python()
 from pypen.utils import *
 from pypen.drawing import *
 
-TIME = T = DELTA_TIME = DT = FRAME = F = 0
+TIME = T = DELTA_TIME = DT = FRAME = F = FPS = 0
 WIDTH = settings.width
 HEIGHT = settings.height
 
 
 def grid(spacing=1, start_x=0, start_y=0):
-    global HEIGHT, WIDTH
     spacing = max(1, abs(spacing))
 
     x = start_x
     y = start_y
-    while y < HEIGHT:
+    while y < settings.height:
         yield x, y
 
         x = (x + spacing)
 
-        if x >= WIDTH:
+        if x >= settings.width:
             x = start_x
             y += spacing
 

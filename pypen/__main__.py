@@ -2,13 +2,13 @@ import sys
 import argparse
 import time
 from os import path, getcwd
-import tkinter
-import cairo
-
 from importlib import util as import_util
+import pkg_resources
 
 from pypen.settings import settings
-import pkg_resources
+from pypen.drawing.pypen_window import PyPenWindow
+
+import pyglet
 
 _argument_parser = argparse.ArgumentParser()
 
@@ -37,7 +37,12 @@ def cli():
 
         _argument_parser.add_argument("filename", nargs="?", help="The name/path of your PyPen Sketch.", default="")
         _argument_parser.add_argument("-f", "--fullscreen", action="store_true")
-        _argument_parser.add_argument("--timeout", help="Timeout in seconds. Window will close once done.", type=float, required=False, default=0.0)
+        _argument_parser.add_argument(
+            "--timeout",
+            help="Timeout in milliseconds. Window will automatically close after this timeout.",
+            type=float,
+            required=False,
+            default=0.0)
         _argument_parser.add_argument("-v", "--version",
                                       help="Displays the currently installed PyPen's version.",
                                       action="version",
@@ -85,7 +90,7 @@ def start():
 
 
 def update():
-    fill("orange")
+    fill_screen("orange")
     rectangle(20, 20, 300, 400, "red")
 """
 
@@ -117,79 +122,37 @@ def main(arguments):
     try:
         user_sketch.TIME
         user_sketch.T
-        user_sketch.rectangle
         user_sketch.PI
-    except AttributeError:
+    except AttributeError as error:
         print()
         print(f"It seems like you're not importing PyPen to your sketch '{arguments.filename}'")
         print("Import it by writing 'from pypen import *' at the very top!")
         print()
+
+        print(error)
         sys.exit(1)
 
     try:
         user_sketch.start
     except AttributeError:
-        settings._user_has_start = False
+        user_sketch.settings._user_has_start = False
 
     try:
         user_sketch.update
     except AttributeError:
-        settings._user_has_update = False
+        user_sketch.settings._user_has_update = False
 
-    if not settings._user_has_start and not settings._user_has_update:
+    if not user_sketch.settings._user_has_start and not user_sketch.settings._user_has_update:
         print()
-        print(
-            f"Your PyPen sketch '{arguments.filename}' appears to have neither a start() nor an update() function.")
+        print(f"Your PyPen sketch '{arguments.filename}' appears to have neither a start() nor an update() function.")
         print("Try to add at least one of those and run again!")
         print()
         sys.exit(1)
 
-    def start():
-        user_sketch.start()
-        if settings._user_has_update:
-            update()
-
-    def update(passed_time=0, delta_time=0, frame_count=0):
-        if not settings._user_has_update:
-            return
-        user_sketch.TIME = user_sketch.T = passed_time
-        user_sketch.DELTA_TIME = user_sketch.DT = delta_time
-        user_sketch.FRAME = user_sketch.F = frame_count
-
-        user_sketch.update()
-
     window_title = f"PyPen | {path.splitext(path.split(arguments.filename)[1])[0]}"
+    pypen_window = PyPenWindow(user_sketch, window_title, arguments)
 
-    root = tkinter.Tk()
-
-    root.geometry("{}x{}".format(user_sketch.WIDTH, user_sketch.HEIGHT))
-    root.surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, user_sketch.WIDTH, user_sketch.HEIGHT)
-
-    root.context = cairo.Context(root.surface)
-    root.context.scale(user_sketch.WIDTH, user_sketch.HEIGHT)
-    root.context.rectangle(0, 0, 1, 1)
-    root.context.set_source_rgba(0.4, 0.4, 0, 0.8)
-    root.context.fill()
-
-    # Code to add widgets will go here...
-    root.mainloop()
-
-    if settings._user_has_start:
-        start()
-
-    is_running = True
-    passed_time = frame_count = 0
-
-    delta_time = 0.01
-    passed_time += delta_time
-    frame_count += 1
-
-    if arguments.timeout > 0:
-        if passed_time > arguments.timeout:
-            is_running = False
-
-    if settings._user_has_update:
-        update(passed_time, delta_time, frame_count)
+    pyglet.app.run()
 
 
 if __name__ == "__main__":

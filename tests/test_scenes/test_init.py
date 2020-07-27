@@ -6,5 +6,5 @@ def start():
 
 
 def update():
-    fill("orange")
+    fill_screen("orange")
     rectangle(20, 20, 300, 400, "red")
