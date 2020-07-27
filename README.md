@@ -8,7 +8,7 @@ PyPen tries to be the end-all solution to creative coding in Python. It provides
 
 We felt like there was always a bunch of overhead needed to get nice and simple HTML-canvas-like graphics to work in Python and that this overhead always made for a half-baked user experience.
 
-PyPen is basically doing all of the boring stuff in the background and exposes simple functions like <pre><code class="language-python"> clear() </code></pre>, <pre><code class="language-python"> circle(x, y, radius) </code></pre>, <pre><code class="language-python"> rectangle(x, y, width, height) </code></pre> and many more for you to use and express your creativity with.
+PyPen is basically doing all of the boring stuff in the background and exposes simple functions like ```clear()```, ```circle(x, y, radius)```, ```rectangle(x, y, width, height)``` and many more for you to use and express your creativity with.
 
 # How do I Use PyPen?
 
