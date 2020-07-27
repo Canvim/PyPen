@@ -9,7 +9,7 @@ from pyglet import clock, gl, image, window, canvas
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
-        super().__init__(visible=False, resizable=True, fullscreen=arguments.fullscreen)
+        super().__init__(visible=False, resizable=True, caption=window_title, fullscreen=arguments.fullscreen)
 
         self.user_sketch = user_sketch
         self.window_title = window_title
@@ -65,7 +65,7 @@ class PyPenWindow(window.Window):
 
         if width <= 0 or height <= 0:
             return
-            
+
         self.user_sketch.settings.width = max(width, 1)
         self.user_sketch.settings.height = max(height, 1)
 
