@@ -7,4 +7,4 @@ def start():
 
 def update():
     clear()
-    arc(320, 240, 150, PI*sin(TIME+1.6), PI*sin(TIME), "blue")
+    arc(WIDTH/2, HEIGHT/2, HEIGHT/4, PI*sin(TIME+1.6), PI*sin(TIME), "blue")
