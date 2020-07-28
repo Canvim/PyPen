@@ -3,6 +3,7 @@ import re
 import os
 from pypen.settings import settings
 
+
 def _check_if_executed_with_python():
     if not sys.argv:
         return
@@ -25,28 +26,34 @@ def _check_if_executed_with_python():
 
 _check_if_executed_with_python()
 
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
 from pypen.utils import *
 from pypen.drawing import *
+from pypen.drawing import _COLORS
 
-TIME = T = DELTA_TIME = DT = FRAME = F = 0
+
+class _Mouse:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+TIME = T = DELTA_TIME = DT = FRAME = F = FPS = 0
 WIDTH = settings.width
 HEIGHT = settings.height
 
+MOUSE = _Mouse(0, 0)
 
 def grid(spacing=1, start_x=0, start_y=0):
-    global HEIGHT, WIDTH
     spacing = max(1, abs(spacing))
 
     x = start_x
     y = start_y
-    while y < HEIGHT:
+    while y < settings.height:
         yield x, y
 
         x = (x + spacing)
 
-        if x >= WIDTH:
+        if x >= settings.width:
             x = start_x
             y += spacing
 

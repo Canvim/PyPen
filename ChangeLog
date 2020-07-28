@@ -1,6 +1,20 @@
 CHANGES
 =======
 
+* Making PyPen Great Again
+* Broken Commit
+* Added --version flag to display PyPen version
+* Fixed Examples for tests
+* example004 added, remap added, grid function corrected
+* Potentially Broken Initial Commit..
+* Changed README.md
+* Removed Accidental Sketch
+* Patched Update called incorrectly and added Random
+* Added simple test for --init flag
+* Updated README.md
+* New --init flag added to create a standard sketch!
+* Broken Commit
+* Initial Renaming to PyPen
 * Added Badge to README.md
 * More color cases supported: 0xffffff, [12, 12, 12] +with alpha versions
 * Added some more autopep8 flags
