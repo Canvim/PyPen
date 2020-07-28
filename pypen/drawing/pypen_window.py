@@ -6,10 +6,14 @@ from pypen.drawing.primitives import PrimitivesDrawer
 from pyglet import clock, gl, image, window, canvas
 import cairo
 
+
+# In order to display our Icon properly on Windows,
+# we need to have a "unique" (different from python's) app_id set
 if sys.platform == "win32":
     import ctypes
-    myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+    app_id = "canvim.pypen"  # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
@@ -49,16 +53,15 @@ class PyPenWindow(window.Window):
         gl.glEnable(gl.GL_TEXTURE_2D)
 
         gl.glBindTexture(gl.GL_TEXTURE_2D, self.primitives_drawer.texture.id)
-        gl.glTexImage2D(
-            gl.GL_TEXTURE_2D,
-            0,
-            gl.GL_RGBA,
-            self.primitives_drawer.settings.width,
-            self.primitives_drawer.settings.height,
-            0,
-            gl.GL_BGRA,
-            gl.GL_UNSIGNED_BYTE,
-            self.primitives_drawer.surface_data)
+        gl.glTexImage2D(gl.GL_TEXTURE_2D,
+                        0,
+                        gl.GL_RGBA,
+                        self.primitives_drawer.settings.width,
+                        self.primitives_drawer.settings.height,
+                        0,
+                        gl.GL_BGRA,
+                        gl.GL_UNSIGNED_BYTE,
+                        self.primitives_drawer.surface_data)
 
         gl.glBegin(gl.GL_QUADS)
         gl.glTexCoord2f(0.0, 1.0)

@@ -31,12 +31,11 @@ class PrimitivesDrawer():
         self.settings = settings
 
         self.surface_data = (ctypes.c_ubyte * (self.settings.width * self.settings.height * 4))()
-        self.surface = cairo.ImageSurface.create_for_data(
-            self.surface_data,
-            cairo.FORMAT_ARGB32,
-            self.settings.width,
-            self.settings.height,
-            self.settings.width * 4)
+        self.surface = cairo.ImageSurface.create_for_data(self.surface_data,
+                                                          cairo.FORMAT_ARGB32,
+                                                          self.settings.width,
+                                                          self.settings.height,
+                                                          self.settings.width * 4)
         self.context = cairo.Context(self.surface)
 
         self.texture = image.Texture.create_for_size(gl.GL_TEXTURE_2D, self.settings.width, self.settings.height, gl.GL_RGBA)

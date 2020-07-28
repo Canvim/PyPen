@@ -3,6 +3,7 @@ import re
 import os
 from pypen.settings import settings
 
+
 def _check_if_executed_with_python():
     if not sys.argv:
         return

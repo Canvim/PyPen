@@ -12,13 +12,11 @@ class Settings:
         self._user_has_update = _user_has_update
 
 
-settings = Settings(
-    width=640,
-    height=480,
-    fps=60,
-    default_pypen_name="my_sketch.py",
+settings = Settings(width=640,
+                    height=480,
+                    fps=60,
+                    default_pypen_name="my_sketch.py",
 
-    _is_executing_with_python=False,
-    _user_has_start=True,
-    _user_has_update=True
-)
+                    _is_executing_with_python=False,
+                    _user_has_start=True,
+                    _user_has_update=True)
