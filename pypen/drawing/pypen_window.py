@@ -6,9 +6,10 @@ from pypen.drawing.primitives import PrimitivesDrawer
 from pyglet import clock, gl, image, window, canvas
 import cairo
 
-import ctypes
-myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+if sys.platform == "win32":
+    import ctypes
+    myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
