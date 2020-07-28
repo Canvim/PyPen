@@ -1,15 +1,16 @@
 import time
+import sys
 
 from pypen.drawing.primitives import PrimitivesDrawer
-
-import cairo
-
 from pyglet import clock, gl, image, window, canvas
+import cairo
 
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
         super().__init__(visible=False, resizable=True, caption=window_title, fullscreen=arguments.fullscreen)
+
+        self.set_vsync(True)
 
         self.user_sketch = user_sketch
         self.window_title = window_title
@@ -30,6 +31,10 @@ class PyPenWindow(window.Window):
         clock.schedule_once(self.call_user_start, 0)
         if self.arguments.timeout:
             clock.schedule_once(self.destroy, self.arguments.timeout/1000)
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        self.user_sketch.MOUSE.x = x
+        self.user_sketch.MOUSE.y = self.user_sketch.settings.height - y
 
     def destroy(self, *args):
         self.close()
@@ -59,7 +64,7 @@ class PyPenWindow(window.Window):
         gl.glTexCoord2f(0.0, 0.0)
         gl.glVertex2i(0, self.primitives_drawer.settings.height)
         gl.glEnd()
-    
+
     def on_resize(self, width, height):
         super().on_resize(width, height)
 
@@ -68,11 +73,7 @@ class PyPenWindow(window.Window):
 
         self.user_sketch.settings.width = max(width, 1)
         self.user_sketch.settings.height = max(height, 1)
-
         self.primitives_drawer.update_settings(self.user_sketch.settings)
-        
-
-    
 
     def fix_primitive_functions(self):
         self.user_sketch.fill_screen = self.primitives_drawer.fill_screen
@@ -83,10 +84,20 @@ class PyPenWindow(window.Window):
         self.user_sketch.circle = self.primitives_drawer.circle
         self.user_sketch.arc = self.primitives_drawer.arc
 
+        self.user_sketch.rotate = self.primitives_drawer.rotate
+        self.user_sketch.translate = self.primitives_drawer.translate
+        self.user_sketch.scale = self.primitives_drawer.scale
+        self.user_sketch.save = self.primitives_drawer.save
+        self.user_sketch.restore = self.primitives_drawer.restore
+
     def call_user_start(self, dt):
         if self.user_sketch.settings._user_has_start:
             self.user_sketch.start()
+            if not self.arguments.fullscreen:
+                self.set_size(self.user_sketch.settings.width, self.user_sketch.settings.height)
+
         self.set_visible()
+
         clock.schedule_interval_soft(self.pypen_loop, 1/self.user_sketch.settings.fps)
 
     def call_user_update(self):
@@ -99,7 +110,10 @@ class PyPenWindow(window.Window):
         self.user_sketch.HEIGHT = self.user_sketch.settings.height
 
         if self.user_sketch.settings._user_has_update:
-            self.user_sketch.update()
+            try:
+                self.user_sketch.update()
+            except KeyboardInterrupt as exception:
+                sys.exit(self.destroy())
 
     def pypen_loop(self, dt, *args):
         self.delta_time = dt

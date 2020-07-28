@@ -28,11 +28,19 @@ _check_if_executed_with_python()
 
 from pypen.utils import *
 from pypen.drawing import *
+from pypen.drawing import _COLORS
+
+
+class _Mouse:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
 TIME = T = DELTA_TIME = DT = FRAME = F = FPS = 0
 WIDTH = settings.width
 HEIGHT = settings.height
 
+MOUSE = _Mouse(0, 0)
 
 def grid(spacing=1, start_x=0, start_y=0):
     spacing = max(1, abs(spacing))

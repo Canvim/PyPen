@@ -12,6 +12,21 @@ class PrimitivesDrawer():
         self.context = None
         self.update_settings(settings)
 
+    def rotate(self, angle=0):
+        self.context.rotate(angle)
+
+    def translate(self, x=0, y=0):
+        self.context.translate(x, y)
+
+    def scale(self, factor=1):
+        self.context.scale(factor)
+
+    def save(self):
+        self.context.save()
+
+    def restore(self):
+        self.context.restore()
+
     def update_settings(self, settings):
         self.settings = settings
 

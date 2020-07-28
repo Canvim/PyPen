@@ -1,5 +1,5 @@
 # Color
-from pypen.drawing.color import Color
+from pypen.drawing.color import Color, _COLORS
 
 # Primitives
 from pypen.drawing.primitives import PrimitivesDrawer
