@@ -39,21 +39,26 @@ def arc(x, y, radius, start_angle, stop_angle, color="default_color"):
     """Draws an arc on the given coordinate with the given radius, angles and color"""
     raise NotImplementedError("arc() not implemented")
 
+
 def rotate(angle):
     """Rotates the context"""
     raise NotImplementedError("rotate() is not implemented")
+
 
 def translate(x, y):
     """Translates the context by x and y"""
     raise NotImplementedError("translate() is not implemented")
 
+
 def scale(factor):
     """Scales the context by the provided factor"""
     raise NotImplementedError("scale() is not implemented")
 
+
 def save():
     """Saves the current context's translation, rotation and scaling"""
     raise NotImplementedError("save() is not implemented")
+
 
 def restore():
     """Restores the context's translation, rotation and scaling to that of the latest save"""
