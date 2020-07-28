@@ -1,17 +1,22 @@
 import time
 import sys
+import os
 
 from pypen.drawing.primitives import PrimitivesDrawer
 from pyglet import clock, gl, image, window, canvas
 import cairo
 
+import ctypes
+myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 class PyPenWindow(window.Window):
     def __init__(self, user_sketch=None, window_title="Example", arguments={}):
         super().__init__(visible=False, resizable=True, caption=window_title, fullscreen=arguments.fullscreen)
 
         self.set_vsync(True)
-
+        self._current_path = os.path.dirname(__file__)
+        self.set_icon(image.load(os.path.join(self._current_path, "..", "resources", "icon.png")))
         self.user_sketch = user_sketch
         self.window_title = window_title
         self.arguments = arguments
