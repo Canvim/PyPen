@@ -1,5 +1,5 @@
 
-<img src="./PyPen.svg" max-width="200px">
+<img src="https://raw.githubusercontent.com/Canvim/PyPen/master/PyPen.svg" max-width="200px">
 
 [![Build Status](https://travis-ci.org/Canvim/PyPen.svg?branch=master)](https://travis-ci.org/Canvim/PyPen) [![PyPI - Version](https://img.shields.io/pypi/v/pypen.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pypen/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pypen?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pypen/) [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Canvim/PyPen?color=purple&label=Size&logo=github)](https://github.com/Canvim/PyPen/) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/PyPen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/PyPen/?branch=master)
 
