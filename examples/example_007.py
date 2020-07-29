@@ -53,8 +53,8 @@ def start():
 
 
 def update():
-    global current_x, current_y
     fill_screen("#343434")
+
     for icon in icons:
         icon.update()
 
