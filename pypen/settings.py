@@ -19,7 +19,7 @@ settings = Settings(width=640,
                     height=480,
                     fps=60,
                     default_pypen_name="my_sketch.py",
-                    fill_color="default_color",
+                    fill_color="default_fill_color",
                     stroke_color="default_stroke_color",
                     stroke_width=0,
 

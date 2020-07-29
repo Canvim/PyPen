@@ -22,23 +22,39 @@ class PyPen():
 
         self.user_sketch.rectangle = self.rectangle
         self.user_sketch.circle = self.circle
+        self.user_sketch.ellipse = self.ellipse
+        self.user_sketch.arc = self.arc
+
         self.user_sketch.arc = self.arc
 
         self.user_sketch.rotate = self.rotate
         self.user_sketch.translate = self.translate
         self.user_sketch.scale = self.scale
         self.user_sketch.save = self.save
-        self.user_sketch.restore = self.restore
+        self.user_sketch.restore = self.restore        
 
-    def _set_style(self, fill="", stroke="", stroke_width=-1):
-        if fill != "":
-            self.user_sketch.settings.fill = fill
 
-        if stroke != "":
-            self.user_sketch.settings.stroke = stroke
+    def _fill(self, unparsed_fill_color):
+        if unparsed_fill_color != "":
+            self.user_sketch.settings.fill_color = unparsed_fill_color
+        
+        fill_color = Color.from_user_input(self.user_sketch.settings.fill_color)
+        self.context.set_source_rgba(*fill_color.rgba())
+        self.context.fill()
 
-        if stroke_width >= 0:
-            self.user_sketch.settings.stroke_width = stroke_width
+    def _stroke(self, unparsed_stroke_color, unparsed_stroke_width):
+        if unparsed_stroke_color != "":
+            self.user_sketch.settings.stroke_color = unparsed_stroke_color
+
+        if unparsed_stroke_width >= 0:
+            self.user_sketch.settings.stroke_width = unparsed_stroke_width
+
+        stroke_color = Color.from_user_input(self.user_sketch.settings.stroke_color)
+        stroke_width = self.user_sketch.settings.stroke_width
+
+        self.context.set_line_width(stroke_width)
+        self.context.set_source_rgba(*stroke_color.rgba())
+        self.context.stroke_preserve()
 
     def rotate(self, angle=0):
         self.context.rotate(angle)
@@ -78,35 +94,27 @@ class PyPen():
         self.rectangle(0, 0, 1, 1, color)
         self.context.restore()
 
-    def fill(self):
-        self.context.fill()
-
-    def rectangle(self, x, y, width, height, color="default_color"):
-        color = Color.from_user_input(color)
-
-        self.context.set_source_rgba(*color.rgba())
+    def rectangle(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
         self.context.rectangle(x, y, width, height)
-        self.context.fill()
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
 
-    def circle(self, x, y, radius, color="default_color"):
-        color = Color.from_user_input(color)
-
-        self.context.set_source_rgba(*color.rgba())
+    def circle(self, x, y, radius, fill_color="", stroke_color="", stroke_width=-1):
         self.context.arc(x, y, radius, 0, 3.141593*2)
-        self.context.fill()
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
 
-    def ellipse(self, x, y, width, height, color="default_color"):
-        color = Color.from_user_input(color)
-        display = pygame.display.get_surface()
+    def ellipse(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
+        ratio = height/width
+        self.save()
+        self.context.scale(1, ratio) 
+        self.context.arc(x, y/ratio, width, 0, 3.141593*2)
+        self.restore()
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
 
-        rect_x = int(x - width/2)
-        rect_y = int(y - height/2)
-        pygame.draw.ellipse(display, color.rgba(), (rect_x, rect_y, int(width), int(height)))
-
-    def arc(self, x, y, radius, start_angle, stop_angle, color="default_color"):
-        color = Color.from_user_input(color)
-
-        self.context.set_source_rgba(*color.rgba())
-        self.context.set_line_width(1.4)
+    def arc(self, x, y, radius, start_angle, stop_angle, fill_color="", stroke_color="", stroke_width=-1):
+        if fill_color != "" and stroke_color = "":
+            stroke_color = fill_color
         self.context.arc(x, y, radius, start_angle, stop_angle)
-        self.context.stroke()
+        self._stroke(stroke_color, stroke_width)
