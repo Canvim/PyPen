@@ -6,7 +6,8 @@ from pypen.drawing.css_colors import _CSS_COLORS
 
 _COLORS = {
     "default_background_color": (0),
-    "default_color": (30, 60, 125),
+    "default_fill_color": (30, 60, 125),
+    "default_stroke_color": (15, 30, 60),
 
     "red": (200, 30, 30),
     "green": (30, 200, 30),
@@ -81,5 +82,8 @@ class Color:
                 color = Color.from_user_input(new_user_input)
                 _COLORS_CACHE[user_input] = color
                 return color
+
+        if isinstance(user_input, bool) or isinstance(user_input, type(None)):
+            return cls(0, 0, 0, 0)
 
         return cls()

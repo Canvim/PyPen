@@ -20,22 +20,22 @@ def fill():
     raise NotImplementedError("fill() not implemented")
 
 
-def rectangle(x, y, width, height, color="default_color"):
+def rectangle(x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
     """Draws a rectangle on the given coordinate with the given width, height and color"""
     raise NotImplementedError("rectangle() not implemented")
 
 
-def circle(x, y, radius, color="default_color"):
+def circle(x, y, radius, fill_color="", stroke_color="", stroke_width=-1):
     """Draws a circle on the given coordinate with the given radius and color"""
     raise NotImplementedError("circle() not implemented")
 
 
-def ellipse(x, y, width, height, color="default_color"):
+def ellipse(x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
     """Draws an ellipse on the given coordinate with the given width, height and color"""
     raise NotImplementedError("ellipse() not implemented")
 
 
-def arc(x, y, radius, start_angle, stop_angle, color="default_color"):
+def arc(x, y, radius, start_angle, stop_angle, fill_color="", stroke_color="", stroke_width=-1):
     """Draws an arc on the given coordinate with the given radius, angles and color"""
     raise NotImplementedError("arc() not implemented")
 
