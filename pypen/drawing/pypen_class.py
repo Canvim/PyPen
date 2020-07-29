@@ -1,6 +1,7 @@
 import ctypes
 
 from pypen.drawing.color import Color
+from pypen.utils.math import TAU
 import cairo
 from pyglet import gl, image
 
@@ -31,13 +32,12 @@ class PyPen():
         self.user_sketch.translate = self.translate
         self.user_sketch.scale = self.scale
         self.user_sketch.save = self.save
-        self.user_sketch.restore = self.restore        
-
+        self.user_sketch.restore = self.restore
 
     def _fill(self, unparsed_fill_color):
         if unparsed_fill_color != "":
             self.user_sketch.settings.fill_color = unparsed_fill_color
-        
+
         fill_color = Color.from_user_input(self.user_sketch.settings.fill_color)
         self.context.set_source_rgba(*fill_color.rgba())
         self.context.fill()
@@ -79,7 +79,6 @@ class PyPen():
                                                           self.user_sketch.settings.height,
                                                           self.user_sketch.settings.width * 4)
         self.context = cairo.Context(self.surface)
-
         self.texture = image.Texture.create_for_size(gl.GL_TEXTURE_2D, self.user_sketch.settings.width, self.user_sketch.settings.height, gl.GL_RGBA)
 
     def clear_screen(self):
@@ -100,21 +99,20 @@ class PyPen():
         self._fill(fill_color)
 
     def circle(self, x, y, radius, fill_color="", stroke_color="", stroke_width=-1):
-        self.context.arc(x, y, radius, 0, 3.141593*2)
+        self.context.arc(x, y, radius, 0, TAU)
         self._stroke(stroke_color, stroke_width)
         self._fill(fill_color)
 
     def ellipse(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
         ratio = height/width
         self.save()
-        self.context.scale(1, ratio) 
-        self.context.arc(x, y/ratio, width, 0, 3.141593*2)
+        self.context.scale(1, ratio)
+        self.context.arc(x, y/ratio, width, 0, TAU)
         self.restore()
         self._stroke(stroke_color, stroke_width)
         self._fill(fill_color)
 
     def arc(self, x, y, radius, start_angle, stop_angle, fill_color="", stroke_color="", stroke_width=-1):
-        if fill_color != "" and stroke_color = "":
-            stroke_color = fill_color
         self.context.arc(x, y, radius, start_angle, stop_angle)
         self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)

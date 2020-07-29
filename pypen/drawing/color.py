@@ -83,4 +83,7 @@ class Color:
                 _COLORS_CACHE[user_input] = color
                 return color
 
+        if isinstance(user_input, bool) or isinstance(user_input, type(None)):
+            return cls(0, 0, 0, 0)
+
         return cls()

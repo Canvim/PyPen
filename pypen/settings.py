@@ -1,7 +1,8 @@
 
 
 class Settings:
-    def __init__(self, fps, width, height, default_pypen_name, _is_executing_with_python, _user_has_start, _user_has_update, fill_color, stroke_color, stroke_width):
+    def __init__(self, fps, width, height, default_pypen_name, _is_executing_with_python,
+                 _user_has_start, _user_has_update, fill_color, stroke_color, stroke_width):
         self.fps = fps
         self.width = width
         self.height = height
