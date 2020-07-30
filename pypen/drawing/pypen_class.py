@@ -22,6 +22,9 @@ class PyPen():
         self.user_sketch.clear_screen = self.clear_screen
         self.user_sketch.clear = self.clear
 
+        self.user_sketch.begin_shape = self.begin_shape
+        self.user_sketch.vertex = self.vertex
+        self.user_sketch.end_shape = self.end_shape
         self.user_sketch.rectangle = self.rectangle
         self.user_sketch.circle = self.circle
         self.user_sketch.ellipse = self.ellipse
@@ -103,6 +106,25 @@ class PyPen():
         self.context.set_source_rgba(*background_color.rgba())
         self.context.fill()
         self.context.restore()
+
+    def begin_shape(self):
+        self.user_sketch.settings._shape_begun = True
+
+    def vertex(self, x, y):
+        if self.user_sketch.settings._shape_begun:
+            self.context.move_to(x, y)
+            self.user_sketch.settings._starting_point = (x, y)
+            self.user_sketch.settings._shape_begun = False
+        else:
+            self.context.line_to(x, y)
+
+    def end_shape(self, fill_color="", stroke_color="", stroke_width=-1):
+        if self.user_sketch.settings._starting_point != None:
+            starting_point = self.user_sketch.settings._starting_point
+            self.context.line_to(starting_point[0], starting_point[1])
+            self.user_sketch.settings._starting_point = None
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
 
     def rectangle(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
         self.context.rectangle(x, y, width, height)
