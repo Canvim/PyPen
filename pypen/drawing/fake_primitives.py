@@ -63,3 +63,9 @@ def save():
 def restore():
     """Restores the context's translation, rotation and scaling to that of the latest save"""
     raise NotImplementedError("restore() is not implemented")
+
+
+def reset_style():
+    """Resets PyPen's current setting surrounding style to their default_values, which includes fill_color, stroke_color, stroke_width"""
+    raise NotImplementedError("reset_style() is not implemented")
+
