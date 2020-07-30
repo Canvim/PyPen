@@ -1,4 +1,4 @@
-
+from copy import copy
 
 class Settings:
     def __init__(self, fps, width, height, default_pypen_name, _is_executing_with_python,
@@ -27,3 +27,5 @@ settings = Settings(width=640,
                     _is_executing_with_python=False,
                     _user_has_start=True,
                     _user_has_update=True)
+
+default_settings = copy(settings)

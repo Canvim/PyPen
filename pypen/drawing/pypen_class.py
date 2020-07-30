@@ -2,6 +2,7 @@ import ctypes
 
 from pypen.drawing.color import Color
 from pypen.utils.math import TAU
+from pypen.settings import default_settings 
 import cairo
 from pyglet import gl, image
 
@@ -33,6 +34,8 @@ class PyPen():
         self.user_sketch.scale = self.scale
         self.user_sketch.save = self.save
         self.user_sketch.restore = self.restore
+
+        self.user_sketch.reset_style = self.reset_style
 
     def _fill(self, unparsed_fill_color):
         if unparsed_fill_color != "":
@@ -71,6 +74,11 @@ class PyPen():
     def restore(self):
         self.context.restore()
 
+    def reset_style(self):
+        self.user_sketch.settings.fill_color = default_settings.fill_color
+        self.user_sketch.settings.stroke_color = default_settings.stroke_color
+        self.user_sketch.settings.stroke_width = default_settings.stroke_width
+
     def update_settings(self):
         self.surface_data = (ctypes.c_ubyte * (self.user_sketch.settings.width * self.user_sketch.settings.height * 4))()
         self.surface = cairo.ImageSurface.create_for_data(self.surface_data,
@@ -88,9 +96,12 @@ class PyPen():
         self.clear_screen()
 
     def fill_screen(self, color="default_background_color"):
+        background_color = Color.from_user_input(color)
         self.context.save()
         self.context.scale(self.user_sketch.settings.width, self.user_sketch.settings.height)
-        self.rectangle(0, 0, 1, 1, color)
+        self.context.rectangle(0, 0, 1, 1)
+        self.context.set_source_rgba(*background_color.rgba())
+        self.context.fill()
         self.context.restore()
 
     def rectangle(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
