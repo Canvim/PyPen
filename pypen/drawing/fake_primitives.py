@@ -49,6 +49,21 @@ def fill():
     raise NotImplementedError("fill() not implemented")
 
 
+def begin_shape():
+    """Tells PyPen that a shape is a bout to be created"""
+    raise NotImplementedError("begin_shape() not implemented")
+
+
+def vertex(x, y):
+    """Adds a vertex to current shape at (x, y)"""
+    raise NotImplementedError("vertex() not implemented")
+
+
+def end_shape(fill_color="", stroke_color="", stroke_width=-1):
+    """Ends shape and styles it"""
+    raise NotImplementedError("end_shape() not implemented")
+
+
 def rectangle(x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
     """Draws a rectangle on the given coordinate with the given width, height and color"""
     raise NotImplementedError("rectangle() not implemented")
