@@ -2,7 +2,7 @@ import ctypes
 
 from pypen.drawing.color import Color
 from pypen.utils.math import TAU
-from pypen.settings import default_settings 
+from pypen.settings import default_settings
 import cairo
 from pyglet import gl, image
 
@@ -119,7 +119,7 @@ class PyPen():
             self.context.line_to(x, y)
 
     def end_shape(self, fill_color="", stroke_color="", stroke_width=-1):
-        if self.user_sketch.settings._starting_point != None:
+        if self.user_sketch.settings._starting_point is not None:
             starting_point = self.user_sketch.settings._starting_point
             self.context.line_to(starting_point[0], starting_point[1])
             self.user_sketch.settings._starting_point = None

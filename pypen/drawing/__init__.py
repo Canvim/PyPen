@@ -8,4 +8,4 @@ from pypen.drawing.pypen_class import PyPen
 from pypen.drawing.pypen_window import PyPenWindow
 
 # Primitives used for intellisense and documentation
-from pypen.drawing.fake_primitives import *
+from pypen.drawing.fake_pypen import *
