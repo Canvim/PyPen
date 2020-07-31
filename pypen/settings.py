@@ -19,6 +19,7 @@ class Settings:
         self._shape_begun = False
         self._starting_point = None
 
+
 settings = Settings(width=640,
                     height=480,
                     fps=60,
