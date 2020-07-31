@@ -1,0 +1,34 @@
+name: PyPen Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.7, 3.6]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo apt update -y -qq
+        sudo apt install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0
+        sudo apt install -y xvfb freeglut3-dev
+        python -m pip install --upgrade pip
+        pip install wheel
+        python setup.py bdist_wheel
+        pip install .
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run PyPen Tests
+      run: |
+        xvfb-run --server-args="-screen 0 1024x768x24" python tests/tests.py

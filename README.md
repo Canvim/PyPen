@@ -1,7 +1,7 @@
 
 <img src="https://raw.githubusercontent.com/Canvim/PyPen/master/PyPen.svg" max-width="200px">
 
-[![Build Status](https://travis-ci.org/Canvim/PyPen.svg?branch=master)](https://travis-ci.org/Canvim/PyPen) [![PyPI - Version](https://img.shields.io/pypi/v/pypen.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pypen/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pypen?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pypen/) [![Documentation Status](https://readthedocs.org/projects/pypen/badge/?version=latest)](https://pypen.readthedocs.io/en/latest/?badge=latest) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/PyPen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/PyPen/?branch=master)
+![PyPen Tests](https://github.com/Canvim/PyPen/workflows/PyPen%20Tests/badge.svg) [![Build Status](https://travis-ci.org/Canvim/PyPen.svg?branch=master)](https://travis-ci.org/Canvim/PyPen) [![PyPI - Version](https://img.shields.io/pypi/v/pypen.svg?logo=python&color=lightblue&label=Version)](https://pypi.org/project/pypen/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/pypen?color=lightgreen&label=Downloads&logo=pypi)](https://pypi.org/project/pypen/) [![Documentation Status](https://readthedocs.org/projects/pypen/badge/?version=latest)](https://pypen.readthedocs.io/en/latest/?badge=latest) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Canvim/PyPen/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Canvim/PyPen/?branch=master)
 
 Express your creativity in Python through simple PyPen sketches!
 
