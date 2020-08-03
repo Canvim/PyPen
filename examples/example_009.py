@@ -6,19 +6,20 @@ def start():
 
 
 def update():
-    fill_screen("teal")
+    fill_screen("#343434")
+
+    angle = 0
+    points = 10 + sin(TIME*2)*5
+    radius = 100
+
+    save()
+    translate(WIDTH/2, HEIGHT/2)
 
     begin_shape()
-    vertex(40, 40)
-    vertex(40, 140)
-    vertex(FRAME, 140)
-    end_shape("red")
 
-    begin_shape()
-    vertex(40+FRAME, 240+FRAME)
-    vertex(40, 340)
-    vertex(FRAME, 340)
-    vertex(340, 280)
-    end_shape("yellow", "blue", 5)
+    while angle <= TAU:
+        angle += TAU/points
+        vertex(sin(angle)*radius, cos(angle)*radius)
 
-    reset_style()
+    end_shape("orange")
+    restore()
