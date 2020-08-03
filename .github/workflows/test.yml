@@ -1,24 +1,29 @@
 name: PyPen Tests
-
 on:
   push:
   pull_request:
 
+
 jobs:
   test:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.8, 3.7, 3.6]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+
+    - name: Install Dependencies (Linux)
+      if: runner.os == 'Linux'
       run: |
         sudo apt update -y -qq
         sudo apt install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0
@@ -29,6 +34,17 @@ jobs:
         pip install .
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Run PyPen Tests
+    - name: Install Dependencies (MacOS)
+      if: runner.os == 'macOS'
+      run: |
+        echo "Mac!"
+
+    - name: Install Dependencies (MacOS)
+      if: runner.os == 'Windows'
+      run: |
+        echo "Windows!"
+
+    - name: Run PyPen Tests (Linux)
+      if: runner.os == 'Linux'
       run: |
         xvfb-run --server-args="-screen 0 1024x768x24" python tests/tests.py
