@@ -83,4 +83,10 @@ def arc(x, y, radius, start_angle, stop_angle, fill_color="", stroke_color="", s
     """Draws an arc on the given coordinate with the given radius, angles and color"""
     raise NotImplementedError("arc() not implemented")
 
+def triangle(x1, y1, x2, y2, x3, y3, fill_color="", stroke_color="", stroke_width=-1):
+    """Draws a triangle between the supplied coordinates with the given color"""
+    raise NotImplementedError("triangle() not implemented")
 
+def line(x1, y1, x2, y2, stroke_color="", stroke_width=-1):
+    """Draws a line between the supplied coordinates with the given stroke_color and stroke_width"""
+    raise NotImplementedError("triangle() not implemented")

@@ -30,6 +30,8 @@ class PyPen():
         self.user_sketch.ellipse = self.ellipse
         self.user_sketch.arc = self.arc
         self.user_sketch.triangle = self.triangle
+        self.user_sketch.line = self.line
+
 
         self.user_sketch.arc = self.arc
 
@@ -178,3 +180,8 @@ class PyPen():
         self.context.line_to(x1, y1)
         self._stroke(stroke_color, stroke_width)
         self._fill(fill_color)
+
+    def line(self, x1, y1, x2, y2, stroke_color="", stroke_width=-1):
+        self.context.move_to(x1, y1)
+        self.context.line_to(x2, y2) 
+        self._stroke(stroke_color, stroke_width)
