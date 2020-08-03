@@ -1,7 +1,6 @@
-name: PyPen Tests
-on:
-  push:
-  pull_request:
+name: PyPen CI
+
+on: [push, pull_request]
 
 
 jobs:
@@ -74,3 +73,39 @@ jobs:
       run: |
         pypen --help
         pypen --init
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    # Only on tags:
+    # if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    # Only publish on master
+    if: github.ref == 'refs/heads/migrate_to_github_actions'
+
+    strategy:
+      fail-fast: true
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Dependenceis
+        run: |
+            pip install --upgrade pip
+            pip install wheel setuptools pbr twine
+
+      - name: Build PyPen
+        run: |
+            python setup.py sdist
+            python setup.py bdist_wheel
+
+      - name: Deploy to PyPi
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPEN_PYPI_TOKEN }}
