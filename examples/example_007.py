@@ -13,6 +13,7 @@ class Icon():
         self.secondary_color = "#565656"
 
     def update(self):
+        reset_style()
         save()
         translate(self.x, self.y)
         rotate(TIME)
@@ -40,7 +41,7 @@ class Icon():
     def circle(self):
         circle(0, 0, self.width/2, self.color)
         if self.variation > 0.6:
-            arc(0, 0, self.width/2, 0, PI, fill_color=None, stroke_color=self.secondary_color)
+            arc(0, 0, self.width/2, 0, PI, None, self.secondary_color, 2)
 
 
 def start():
