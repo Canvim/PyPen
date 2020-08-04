@@ -40,7 +40,7 @@ class Icon():
     def circle(self):
         circle(0, 0, self.width/2, self.color)
         if self.variation > 0.6:
-            arc(0, 0, self.width/2, 0, PI, self.secondary_color)
+            arc(0, 0, self.width/2, 0, PI, fill_color=None, stroke_color=self.secondary_color)
 
 
 def start():
