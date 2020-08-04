@@ -1,0 +1,49 @@
+name: PyPen CD
+
+on:
+    create:
+        tags:
+          - v*
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+
+        steps:
+        - name: Checkout the repository
+          uses: actions/checkout@v2
+
+        - name: Set up Python ${{ matrix.python-version }}
+          uses: actions/setup-python@v2
+          with:
+              python-version: 3.8
+
+        - name: Install Dependenceis
+          run: |
+              pip install --upgrade pip
+              pip install wheel setuptools pbr twine
+
+        - name: Build PyPen
+          run: |
+            python setup.py sdist
+            python setup.py bdist_wheel
+
+        - name: Deploy to PyPi
+          uses: pypa/gh-action-pypi-publish@master
+          with:
+            user: __token__
+            password: ${{ secrets.PYPEN_PYPI_TOKEN }}
+
+        - name: Create Release on Github
+          uses: actions/create-release@v1
+          env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+              tag_name: ${{ github.ref }}
+              release_name: Release ${{ github.ref }}
+              body: PyPen release ${{ github.ref }}
+              draft: false
+              prerelease: true
