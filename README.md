@@ -22,6 +22,20 @@ TL;DR:
 3. type ```pypen example``` and a window should popup with something looking like this: <br><br><img src="https://i.imgur.com/AwMJM3K.png" width="200px"><br><br>
 4. edit the example.py file by checking out PyPen's documentation and [examples](./examples/)
 
+## Inspiration from our Examples:
+
+| Example 002 | Example 003 |
+|:-----------:|:-----------:|
+|![Example 002 Gif](./examples/gifs/002.gif)|![Example 003 Gif](./examples/gifs/003.gif)|
+
+| Example 006 | Example 007 |
+|:-----------:|:-----------:|
+|![Example 006 Gif](./examples/gifs/006.gif)|![Example 007 Gif](./examples/gifs/007.gif)|
+
+| Example 010 | Example 011 |
+|:-----------:|:-----------:|
+|![Example 010 Gif](./examples/gifs/010.gif)|![Example 011 Gif](./examples/gifs/011.gif)|
+
 ## _(For Maintainers)_ How does PyPen work?
 We have an entire page dedicated to explaining the inner workings of PyPen. If you are a developer interested in helping PyPen's development, you should check it out: [How does PyPen _Really_ Work?](https://pypen.readthedocs.io/en/latest/behind_the_scenes.html#behind-the-scenes)
 

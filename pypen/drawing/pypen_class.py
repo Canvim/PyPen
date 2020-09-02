@@ -2,7 +2,7 @@ import ctypes
 
 from pypen.drawing.color import Color
 from pypen.utils.math import TAU
-from pypen.settings import default_settings 
+from pypen.settings import default_settings
 import cairo
 from pyglet import gl, image
 
@@ -22,10 +22,15 @@ class PyPen():
         self.user_sketch.clear_screen = self.clear_screen
         self.user_sketch.clear = self.clear
 
+        self.user_sketch.begin_shape = self.begin_shape
+        self.user_sketch.vertex = self.vertex
+        self.user_sketch.end_shape = self.end_shape
         self.user_sketch.rectangle = self.rectangle
         self.user_sketch.circle = self.circle
         self.user_sketch.ellipse = self.ellipse
         self.user_sketch.arc = self.arc
+        self.user_sketch.triangle = self.triangle
+        self.user_sketch.line = self.line
 
         self.user_sketch.arc = self.arc
 
@@ -104,6 +109,25 @@ class PyPen():
         self.context.fill()
         self.context.restore()
 
+    def begin_shape(self):
+        self.user_sketch.settings._shape_begun = True
+
+    def vertex(self, x, y):
+        if self.user_sketch.settings._shape_begun:
+            self.context.move_to(x, y)
+            self.user_sketch.settings._starting_point = (x, y)
+            self.user_sketch.settings._shape_begun = False
+        else:
+            self.context.line_to(x, y)
+
+    def end_shape(self, fill_color="", stroke_color="", stroke_width=-1):
+        if self.user_sketch.settings._starting_point is not None:
+            starting_point = self.user_sketch.settings._starting_point
+            self.context.line_to(starting_point[0], starting_point[1])
+            self.user_sketch.settings._starting_point = None
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
+
     def rectangle(self, x, y, width, height, fill_color="", stroke_color="", stroke_width=-1):
         self.context.rectangle(x, y, width, height)
         self._stroke(stroke_color, stroke_width)
@@ -127,3 +151,36 @@ class PyPen():
         self.context.arc(x, y, radius, start_angle, stop_angle)
         self._stroke(stroke_color, stroke_width)
         self._fill(fill_color)
+
+    def triangle(self, x1_or_x, y1_or_y, x2_or_width, y2_or_height, x3_or_p=0.5, y3=None, fill_color="", stroke_color="", stroke_width=-1):
+        if y3 is not None:
+            x1 = x1_or_x
+            y1 = y1_or_y
+            x2 = x2_or_width
+            y2 = y2_or_height
+            x3 = x3_or_p
+        else:
+            x = x1_or_x
+            y = y1_or_y
+            width = x2_or_width
+            height = y2_or_height
+            p = x3_or_p
+
+            x1 = x - width/2
+            y1 = y + height/2
+            x2 = x + width/2
+            y2 = x + height/2
+            x3 = (x2 - x1) * p + x1
+            y3 = y - height/2
+
+        self.context.move_to(x1, y1)
+        self.context.line_to(x2, y2)
+        self.context.line_to(x3, y3)
+        self.context.line_to(x1, y1)
+        self._stroke(stroke_color, stroke_width)
+        self._fill(fill_color)
+
+    def line(self, x1, y1, x2, y2, stroke_color="", stroke_width=-1):
+        self.context.move_to(x1, y1)
+        self.context.line_to(x2, y2)
+        self._stroke(stroke_color, stroke_width)
