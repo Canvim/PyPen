@@ -19,6 +19,21 @@ Checkout our setup tutorial: [How do I Use PyPen](./docs/EXAMPLE.md)
 TL;DR:
 1. type ```pip install pypen``` and follow instructions if any extra dependencies are needed.
 2. type ```pypen --init example```, which will create a file named example.py in your current directory.
+
+The example.py file will look like this:
+```py
+from pypen import *
+
+
+def start():
+    settings.fps = 60
+
+
+def update():
+    fill_screen("orange")
+    rectangle(20, 20, 300, 400, "red")
+```
+
 3. type ```pypen example``` and a window should popup with something looking like this: <br><br><img src="https://i.imgur.com/AwMJM3K.png" width="200px"><br><br>
 4. edit the example.py file by checking out PyPen's documentation and [examples](./examples/)
 
