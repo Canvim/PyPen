@@ -1,2 +1,2 @@
 pycairo
-pyglet==1.5.8
+pyglet==1.5.18
